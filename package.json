@@ -1,0 +1,21 @@
+{
+  "name": "emotion-bootstrap",
+  "version": "4.0.0",
+  "description": "Bootstrap compile for Emotion framework",
+  "main": "dist/index.js",
+  "keywords": ["css-in-js", "css", "emotion-js", "bootstrap"],
+  "author": "Byron Warner",
+  "license": "MIT",
+  "dependencies": {
+  },
+  "devDependencies": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bwarner/emotion-bootstrap.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bwarner/emotion-bootstrap/issues"
+  },
+  "homepage": "https://github.com/bwarner/emotion-bootstrap#readme"
+}
