@@ -106,3 +106,5 @@ typings/
 
 # WebStore
 /.idea
+
+/dist
