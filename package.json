@@ -35,6 +35,15 @@
     "type": "git",
     "url": "git+https://github.com/bwarner/emotion-bootstrap.git"
   },
+  "engines": {
+    "node": ">= 8.8.1"
+  },
+  "files": [
+    "LICENSE",
+    "README.md",
+    "dist",
+    "vendor"
+  ],
   "bugs": {
     "url": "https://github.com/bwarner/emotion-bootstrap/issues"
   },
