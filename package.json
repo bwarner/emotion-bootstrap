@@ -12,7 +12,7 @@
   "author": "Byron Warner",
   "license": "MIT",
   "scripts": {
-    "prepublish": "gulp build",
+    "prepare": "gulp build",
     "watch": "gulp watch"
   },
   "dependencies": {
