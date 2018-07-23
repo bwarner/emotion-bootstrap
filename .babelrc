@@ -1,8 +1,4 @@
 {
-<<<<<<< Updated upstream
-  "presets": ["env"]
-}
-=======
   "env": {
     "production": {
       "plugins": [["emotion", { "hoist": true }]]
@@ -14,4 +10,4 @@
     }
   }
 }
->>>>>>> Stashed changes
+
