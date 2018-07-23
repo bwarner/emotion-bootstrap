@@ -1,3 +1,17 @@
 {
+<<<<<<< Updated upstream
   "presets": ["env"]
 }
+=======
+  "env": {
+    "production": {
+      "plugins": [["emotion", { "hoist": true }]]
+    },
+    "development": {
+      "plugins": [
+        ["emotion", { "sourceMap": true, "autoLabel": true }]
+      ]
+    }
+  }
+}
+>>>>>>> Stashed changes
