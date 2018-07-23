@@ -18,6 +18,12 @@ export const btn = css`
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
         border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
+    @media screen and (prefers-reduced-motion: reduce) {
+        & {
+            transition: none;
+        }
+    }
+
     &:hover,
     &:focus {
         text-decoration: none;
@@ -56,7 +62,7 @@ export const btn = css`
 
 injectGlobal`
     /*!
- * Bootstrap v4.0.0 (https://getbootstrap.com)
+ * Bootstrap v4.1.2 (https://getbootstrap.com/)
  * Copyright 2011-2018 The Bootstrap Authors
  * Copyright 2011-2018 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
@@ -107,7 +113,7 @@ injectGlobal`
         -webkit-text-size-adjust: 100%;
         -ms-text-size-adjust: 100%;
         -ms-overflow-style: scrollbar;
-        -webkit-tap-highlight-color: transparent;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     }
 
     @-ms-viewport {
@@ -116,7 +122,6 @@ injectGlobal`
 
     article,
     aside,
-    dialog,
     figcaption,
     figure,
     footer,
@@ -268,7 +273,8 @@ injectGlobal`
     code,
     kbd,
     samp {
-        font-family: monospace, monospace;
+        font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+            "Courier New", monospace;
         font-size: 1em;
     }
 
@@ -290,6 +296,7 @@ injectGlobal`
 
     svg:not(:root) {
         overflow: hidden;
+        vertical-align: middle;
     }
 
     table {
@@ -490,14 +497,6 @@ injectGlobal`
         background-color: #fcf8e3;
     }
 
-    code,
-    kbd,
-    pre,
-    samp {
-        font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-            "Courier New", monospace;
-    }
-
     code {
         font-size: 87.5%;
         color: #e83e8c;
@@ -576,7 +575,7 @@ injectGlobal`
 
         pre,
         blockquote {
-            border: 1px solid #999;
+            border: 1px solid #adb5bd;
             page-break-inside: avoid;
         }
 
@@ -611,6 +610,72 @@ injectGlobal`
     }
 
     /*# sourceMappingURL=bootstrap.css.map */
+`;
+
+export const card = css`
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+
+    & > hr {
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+    & > .${listGroup}:first-child .${listGroupItem}:first-child {
+        border-top-left-radius: 0.25rem;
+        border-top-right-radius: 0.25rem;
+    }
+
+    & > .${listGroup}:last-child .${listGroupItem}:last-child {
+        border-bottom-right-radius: 0.25rem;
+        border-bottom-left-radius: 0.25rem;
+    }
+`;
+
+export const cardHeader = css`
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+
+    &:first-child {
+        border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
+    }
+
+    & + .${listGroup} .${listGroupItem}:first-child {
+        border-top: 0;
+    }
+`;
+
+export const accordion = css`
+    & .${card}:not(:first-of-type):not(:last-of-type) {
+        border-bottom: 0;
+        border-radius: 0;
+    }
+
+    & .${card}:not(:first-of-type) .${cardHeader}:first-child {
+        border-radius: 0;
+    }
+
+    & .${card}:first-of-type {
+        border-bottom: 0;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    & .${card}:last-of-type {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
 `;
 
 export const active = css`
@@ -688,15 +753,15 @@ export const close = css`
     text-shadow: 0 1px 0 #fff;
     opacity: 0.5;
 
-    &:hover,
-    &:focus {
+    &:not(:disabled):not(.disabled) {
+        cursor: pointer;
+    }
+
+    &:not(:disabled):not(.disabled):hover,
+    &:not(:disabled):not(.disabled):focus {
         color: #000;
         text-decoration: none;
         opacity: 0.75;
-    }
-
-    &:not(:disabled):not(.disabled) {
-        cursor: pointer;
     }
 
     button& {
@@ -1062,19 +1127,16 @@ export const alignContentXlStretch = css`
 `;
 
 export const alignItemsBaseline = css`
-    -webkit-box-align: baseline !important;
     -ms-flex-align: baseline !important;
     align-items: baseline !important;
 `;
 
 export const alignItemsCenter = css`
-    -webkit-box-align: center !important;
     -ms-flex-align: center !important;
     align-items: center !important;
 `;
 
 export const alignItemsEnd = css`
-    -webkit-box-align: end !important;
     -ms-flex-align: end !important;
     align-items: flex-end !important;
 `;
@@ -1082,7 +1144,6 @@ export const alignItemsEnd = css`
 export const alignItemsLgBaseline = css`
     @media (min-width: 992px) {
         & {
-            -webkit-box-align: baseline !important;
             -ms-flex-align: baseline !important;
             align-items: baseline !important;
         }
@@ -1092,7 +1153,6 @@ export const alignItemsLgBaseline = css`
 export const alignItemsLgCenter = css`
     @media (min-width: 992px) {
         & {
-            -webkit-box-align: center !important;
             -ms-flex-align: center !important;
             align-items: center !important;
         }
@@ -1102,7 +1162,6 @@ export const alignItemsLgCenter = css`
 export const alignItemsLgEnd = css`
     @media (min-width: 992px) {
         & {
-            -webkit-box-align: end !important;
             -ms-flex-align: end !important;
             align-items: flex-end !important;
         }
@@ -1112,7 +1171,6 @@ export const alignItemsLgEnd = css`
 export const alignItemsLgStart = css`
     @media (min-width: 992px) {
         & {
-            -webkit-box-align: start !important;
             -ms-flex-align: start !important;
             align-items: flex-start !important;
         }
@@ -1122,7 +1180,6 @@ export const alignItemsLgStart = css`
 export const alignItemsLgStretch = css`
     @media (min-width: 992px) {
         & {
-            -webkit-box-align: stretch !important;
             -ms-flex-align: stretch !important;
             align-items: stretch !important;
         }
@@ -1132,7 +1189,6 @@ export const alignItemsLgStretch = css`
 export const alignItemsMdBaseline = css`
     @media (min-width: 768px) {
         & {
-            -webkit-box-align: baseline !important;
             -ms-flex-align: baseline !important;
             align-items: baseline !important;
         }
@@ -1142,7 +1198,6 @@ export const alignItemsMdBaseline = css`
 export const alignItemsMdCenter = css`
     @media (min-width: 768px) {
         & {
-            -webkit-box-align: center !important;
             -ms-flex-align: center !important;
             align-items: center !important;
         }
@@ -1152,7 +1207,6 @@ export const alignItemsMdCenter = css`
 export const alignItemsMdEnd = css`
     @media (min-width: 768px) {
         & {
-            -webkit-box-align: end !important;
             -ms-flex-align: end !important;
             align-items: flex-end !important;
         }
@@ -1162,7 +1216,6 @@ export const alignItemsMdEnd = css`
 export const alignItemsMdStart = css`
     @media (min-width: 768px) {
         & {
-            -webkit-box-align: start !important;
             -ms-flex-align: start !important;
             align-items: flex-start !important;
         }
@@ -1172,7 +1225,6 @@ export const alignItemsMdStart = css`
 export const alignItemsMdStretch = css`
     @media (min-width: 768px) {
         & {
-            -webkit-box-align: stretch !important;
             -ms-flex-align: stretch !important;
             align-items: stretch !important;
         }
@@ -1182,7 +1234,6 @@ export const alignItemsMdStretch = css`
 export const alignItemsSmBaseline = css`
     @media (min-width: 576px) {
         & {
-            -webkit-box-align: baseline !important;
             -ms-flex-align: baseline !important;
             align-items: baseline !important;
         }
@@ -1192,7 +1243,6 @@ export const alignItemsSmBaseline = css`
 export const alignItemsSmCenter = css`
     @media (min-width: 576px) {
         & {
-            -webkit-box-align: center !important;
             -ms-flex-align: center !important;
             align-items: center !important;
         }
@@ -1202,7 +1252,6 @@ export const alignItemsSmCenter = css`
 export const alignItemsSmEnd = css`
     @media (min-width: 576px) {
         & {
-            -webkit-box-align: end !important;
             -ms-flex-align: end !important;
             align-items: flex-end !important;
         }
@@ -1212,7 +1261,6 @@ export const alignItemsSmEnd = css`
 export const alignItemsSmStart = css`
     @media (min-width: 576px) {
         & {
-            -webkit-box-align: start !important;
             -ms-flex-align: start !important;
             align-items: flex-start !important;
         }
@@ -1222,7 +1270,6 @@ export const alignItemsSmStart = css`
 export const alignItemsSmStretch = css`
     @media (min-width: 576px) {
         & {
-            -webkit-box-align: stretch !important;
             -ms-flex-align: stretch !important;
             align-items: stretch !important;
         }
@@ -1230,13 +1277,11 @@ export const alignItemsSmStretch = css`
 `;
 
 export const alignItemsStart = css`
-    -webkit-box-align: start !important;
     -ms-flex-align: start !important;
     align-items: flex-start !important;
 `;
 
 export const alignItemsStretch = css`
-    -webkit-box-align: stretch !important;
     -ms-flex-align: stretch !important;
     align-items: stretch !important;
 `;
@@ -1244,7 +1289,6 @@ export const alignItemsStretch = css`
 export const alignItemsXlBaseline = css`
     @media (min-width: 1200px) {
         & {
-            -webkit-box-align: baseline !important;
             -ms-flex-align: baseline !important;
             align-items: baseline !important;
         }
@@ -1254,7 +1298,6 @@ export const alignItemsXlBaseline = css`
 export const alignItemsXlCenter = css`
     @media (min-width: 1200px) {
         & {
-            -webkit-box-align: center !important;
             -ms-flex-align: center !important;
             align-items: center !important;
         }
@@ -1264,7 +1307,6 @@ export const alignItemsXlCenter = css`
 export const alignItemsXlEnd = css`
     @media (min-width: 1200px) {
         & {
-            -webkit-box-align: end !important;
             -ms-flex-align: end !important;
             align-items: flex-end !important;
         }
@@ -1274,7 +1316,6 @@ export const alignItemsXlEnd = css`
 export const alignItemsXlStart = css`
     @media (min-width: 1200px) {
         & {
-            -webkit-box-align: start !important;
             -ms-flex-align: start !important;
             align-items: flex-start !important;
         }
@@ -1284,7 +1325,6 @@ export const alignItemsXlStart = css`
 export const alignItemsXlStretch = css`
     @media (min-width: 1200px) {
         & {
-            -webkit-box-align: stretch !important;
             -ms-flex-align: stretch !important;
             align-items: stretch !important;
         }
@@ -1865,7 +1905,6 @@ export const borderWhite = css`
 `;
 
 export const breadcrumb = css`
-    display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-wrap: wrap;
@@ -1878,10 +1917,13 @@ export const breadcrumb = css`
 `;
 
 export const breadcrumbItem = css`
+    & + & {
+        padding-left: 0.5rem;
+    }
+
     & + &::before {
         display: inline-block;
         padding-right: 0.5rem;
-        padding-left: 0.5rem;
         color: #6c757d;
         content: "/";
     }
@@ -2364,7 +2406,6 @@ export const dropdownToggle = css`
 
 export const btnGroup = css`
   position: relative;
-  display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
   vertical-align: middle;
@@ -2372,7 +2413,6 @@ export const btnGroup = css`
 
 & > .${btn} {
   position: relative;
-  -webkit-box-flex: 0;
   -ms-flex: 0 1 auto;
   flex: 0 1 auto;
 }
@@ -2459,7 +2499,6 @@ export const btnGroupToggle = css`
 
 export const btnGroupVertical = css`
   position: relative;
-  display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
   vertical-align: middle;
@@ -2467,7 +2506,6 @@ export const btnGroupVertical = css`
 
 & > .${btn} {
   position: relative;
-  -webkit-box-flex: 0;
   -ms-flex: 0 1 auto;
   flex: 0 1 auto;
 }
@@ -2485,14 +2523,10 @@ export const btnGroupVertical = css`
 }
 
 
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
-  -webkit-box-align: start;
   -ms-flex-align: start;
   align-items: flex-start;
-  -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
 
@@ -2624,6 +2658,7 @@ export const btnLink = css`
     &:disabled,
     &.disabled {
         color: #6c757d;
+        pointer-events: none;
     }
 `;
 
@@ -3037,32 +3072,20 @@ export const btnSuccess = css`
 
 export const inputGroup = css`
     position: relative;
-    display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    -webkit-box-align: stretch;
     -ms-flex-align: stretch;
     align-items: stretch;
     width: 100%;
 
     & > .${formControl}, & > .${customSelect}, & > .${customFile} {
         position: relative;
-        -webkit-box-flex: 1;
         -ms-flex: 1 1 auto;
         flex: 1 1 auto;
         width: 1%;
         margin-bottom: 0;
-    }
-
-    &
-        > .${formControl}:focus,
-        &
-        > .${customSelect}:focus,
-        &
-        > .${customFile}:focus {
-        z-index: 3;
     }
 
     &
@@ -3095,6 +3118,17 @@ export const inputGroup = css`
         margin-left: -1px;
     }
 
+    &
+        > .${formControl}:focus,
+        &
+        > .${customSelect}:focus,
+        &
+        > .${customFile}
+        .${customFileInput}:focus
+        ~ .${customFileLabel} {
+        z-index: 3;
+    }
+
     & > .${formControl}:not(:last-child),
     & > .${customSelect}:not(:last-child) {
         border-top-right-radius: 0;
@@ -3108,10 +3142,8 @@ export const inputGroup = css`
     }
 
     & > .${customFile} {
-        display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
-        -webkit-box-align: center;
         -ms-flex-align: center;
         align-items: center;
     }
@@ -3121,17 +3153,12 @@ export const inputGroup = css`
         .${customFileLabel},
         &
         > .${customFile}:not(:last-child)
-        .${customFileLabel}::before {
+        .${customFileLabel}::after {
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
     }
 
-    &
-        > .${customFile}:not(:first-child)
-        .${customFileLabel},
-        &
-        > .${customFile}:not(:first-child)
-        .${customFileLabel}::before {
+    & > .${customFile}:not(:first-child) .${customFileLabel} {
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
     }
@@ -3180,12 +3207,10 @@ export const inputGroup = css`
 `;
 
 export const btnToolbar = css`
-    display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    -webkit-box-pack: start;
     -ms-flex-pack: start;
     justify-content: flex-start;
 
@@ -3231,11 +3256,8 @@ export const btnWarning = css`
 `;
 
 export const listGroup = css`
-    display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
     -ms-flex-direction: column;
     flex-direction: column;
     padding-left: 0;
@@ -3281,40 +3303,7 @@ export const listGroupItem = css`
     }
 `;
 
-export const card = css`
-    position: relative;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word;
-    background-color: #fff;
-    background-clip: border-box;
-    border: 1px solid rgba(0, 0, 0, 0.125);
-    border-radius: 0.25rem;
-
-    & > hr {
-        margin-right: 0;
-        margin-left: 0;
-    }
-
-    & > .${listGroup}:first-child .${listGroupItem}:first-child {
-        border-top-left-radius: 0.25rem;
-        border-top-right-radius: 0.25rem;
-    }
-
-    & > .${listGroup}:last-child .${listGroupItem}:last-child {
-        border-bottom-right-radius: 0.25rem;
-        border-bottom-left-radius: 0.25rem;
-    }
-`;
-
 export const cardBody = css`
-    -webkit-box-flex: 1;
     -ms-flex: 1 1 auto;
     flex: 1 1 auto;
     padding: 1.25rem;
@@ -3333,6 +3322,8 @@ export const cardColumns = css`
             -webkit-column-gap: 1.25rem;
             -moz-column-gap: 1.25rem;
             column-gap: 1.25rem;
+            orphans: 1;
+            widows: 1;
         }
 
         & .${card} {
@@ -3343,11 +3334,8 @@ export const cardColumns = css`
 `;
 
 export const cardDeck = css`
-    display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
     -ms-flex-direction: column;
     flex-direction: column;
 
@@ -3357,8 +3345,6 @@ export const cardDeck = css`
 
     @media (min-width: 576px) {
         & {
-            -webkit-box-orient: horizontal;
-            -webkit-box-direction: normal;
             -ms-flex-flow: row wrap;
             flex-flow: row wrap;
             margin-right: -15px;
@@ -3366,14 +3352,10 @@ export const cardDeck = css`
         }
 
         & .${card} {
-            display: -webkit-box;
             display: -ms-flexbox;
             display: flex;
-            -webkit-box-flex: 1;
             -ms-flex: 1 0 0%;
             flex: 1 0 0%;
-            -webkit-box-orient: vertical;
-            -webkit-box-direction: normal;
             -ms-flex-direction: column;
             flex-direction: column;
             margin-right: 15px;
@@ -3399,21 +3381,6 @@ export const cardImgTop = css`
     border-top-right-radius: calc(0.25rem - 1px);
 `;
 
-export const cardHeader = css`
-    padding: 0.75rem 1.25rem;
-    margin-bottom: 0;
-    background-color: rgba(0, 0, 0, 0.03);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
-
-    &:first-child {
-        border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
-    }
-
-    & + .${listGroup} .${listGroupItem}:first-child {
-        border-top: 0;
-    }
-`;
-
 export const cardImgBottom = css`
     width: 100%;
     border-bottom-right-radius: calc(0.25rem - 1px);
@@ -3421,11 +3388,8 @@ export const cardImgBottom = css`
 `;
 
 export const cardGroup = css`
-    display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
     -ms-flex-direction: column;
     flex-direction: column;
 
@@ -3435,14 +3399,11 @@ export const cardGroup = css`
 
     @media (min-width: 576px) {
         & {
-            -webkit-box-orient: horizontal;
-            -webkit-box-direction: normal;
             -ms-flex-flow: row wrap;
             flex-flow: row wrap;
         }
 
         & > .${card} {
-            -webkit-box-flex: 1;
             -ms-flex: 1 0 0%;
             flex: 1 0 0%;
             margin-bottom: 0;
@@ -3615,13 +3576,10 @@ export const carouselControlNext = css`
     position: absolute;
     top: 0;
     bottom: 0;
-    display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
     width: 15%;
@@ -3654,13 +3612,10 @@ export const carouselControlPrev = css`
     position: absolute;
     top: 0;
     bottom: 0;
-    display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
     width: 15%;
@@ -3689,16 +3644,145 @@ export const carouselControlPrevIcon = css`
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
 `;
 
+export const carouselItem = css`
+    position: relative;
+    display: none;
+    -ms-flex-align: center;
+    align-items: center;
+    width: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000px;
+    perspective: 1000px;
+
+    &.${active} {
+        display: block;
+        transition: -webkit-transform 0.6s ease;
+        transition: transform 0.6s ease;
+        transition: transform 0.6s ease, -webkit-transform 0.6s ease;
+    }
+
+    @media screen and (prefers-reduced-motion: reduce) {
+        &.${active} {
+            transition: none;
+        }
+    }
+`;
+
+export const carouselItemNext = css`
+    display: block;
+    transition: -webkit-transform 0.6s ease;
+    transition: transform 0.6s ease;
+    transition: transform 0.6s ease, -webkit-transform 0.6s ease;
+
+    @media screen and (prefers-reduced-motion: reduce) {
+        & {
+            transition: none;
+        }
+    }
+
+    position: absolute;
+    top: 0;
+
+    &.carousel-item-left {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+    }
+
+    @supports ((-webkit-transform-style: preserve-3d) or (transform-style: preserve-3d)) {
+        &.carousel-item-left {
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+
+    @supports ((-webkit-transform-style: preserve-3d) or (transform-style: preserve-3d)) {
+        & {
+            -webkit-transform: translate3d(100%, 0, 0);
+            transform: translate3d(100%, 0, 0);
+        }
+    }
+`;
+
+export const carouselItemPrev = css`
+    display: block;
+    transition: -webkit-transform 0.6s ease;
+    transition: transform 0.6s ease;
+    transition: transform 0.6s ease, -webkit-transform 0.6s ease;
+
+    @media screen and (prefers-reduced-motion: reduce) {
+        & {
+            transition: none;
+        }
+    }
+
+    position: absolute;
+    top: 0;
+
+    &.carousel-item-right {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+    }
+
+    @supports ((-webkit-transform-style: preserve-3d) or (transform-style: preserve-3d)) {
+        &.carousel-item-right {
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+
+    @supports ((-webkit-transform-style: preserve-3d) or (transform-style: preserve-3d)) {
+        & {
+            -webkit-transform: translate3d(-100%, 0, 0);
+            transform: translate3d(-100%, 0, 0);
+        }
+    }
+`;
+
+export const carouselFade = css`& .${carouselItem} {
+  opacity: 0;
+  transition-duration: .6s;
+  transition-property: opacity;
+}
+
+& .${carouselItem}.${active}, & .${carouselItemNext}.carousel-item-left, & .${carouselItemPrev}.carousel-item-right {
+  opacity: 1;
+}
+
+& .${active}.carousel-item-left, & .${active}.carousel-item-right {
+  opacity: 0;
+}
+
+& .${carouselItemNext}, & .${carouselItemPrev}, & .${carouselItem}.${active}, & .${active}.carousel-item-left, & .${active}.${carouselItemPrev} {
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
+}
+
+@supports ((-webkit-transform-style: preserve-3d) or (transform-style: preserve-3d)) {
+  & .${carouselItemNext}, & .${carouselItemPrev}, & .${carouselItem}.${active}, & .${active}.carousel-item-left, & .${active}.${carouselItemPrev} {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+
+
+}
+
+`;
+
 export const carouselIndicators = css`
     position: absolute;
     right: 0;
     bottom: 10px;
     left: 0;
     z-index: 15;
-    display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
     padding-left: 0;
@@ -3708,7 +3792,6 @@ export const carouselIndicators = css`
 
     & li {
         position: relative;
-        -webkit-box-flex: 0;
         -ms-flex: 0 1 auto;
         flex: 0 1 auto;
         width: 30px;
@@ -3716,6 +3799,7 @@ export const carouselIndicators = css`
         margin-right: 3px;
         margin-left: 3px;
         text-indent: -999px;
+        cursor: pointer;
         background-color: rgba(255, 255, 255, 0.5);
     }
 
@@ -3750,84 +3834,6 @@ export const carouselInner = css`
     overflow: hidden;
 `;
 
-export const carouselItem = css`
-    position: relative;
-    display: none;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    width: 100%;
-    transition: -webkit-transform 0.6s ease;
-    transition: transform 0.6s ease;
-    transition: transform 0.6s ease, -webkit-transform 0.6s ease;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    -webkit-perspective: 1000px;
-    perspective: 1000px;
-
-    &.${active} {
-        display: block;
-    }
-`;
-
-export const carouselItemNext = css`
-    display: block;
-
-    position: absolute;
-    top: 0;
-
-    &.carousel-item-left {
-        -webkit-transform: translateX(0);
-        transform: translateX(0);
-    }
-
-    @supports ((-webkit-transform-style: preserve-3d) or (transform-style: preserve-3d)) {
-        &.carousel-item-left {
-            -webkit-transform: translate3d(0, 0, 0);
-            transform: translate3d(0, 0, 0);
-        }
-    }
-
-    -webkit-transform: translateX(100%);
-    transform: translateX(100%);
-
-    @supports ((-webkit-transform-style: preserve-3d) or (transform-style: preserve-3d)) {
-        & {
-            -webkit-transform: translate3d(100%, 0, 0);
-            transform: translate3d(100%, 0, 0);
-        }
-    }
-`;
-
-export const carouselItemPrev = css`
-    display: block;
-
-    position: absolute;
-    top: 0;
-
-    &.carousel-item-right {
-        -webkit-transform: translateX(0);
-        transform: translateX(0);
-    }
-
-    @supports ((-webkit-transform-style: preserve-3d) or (transform-style: preserve-3d)) {
-        &.carousel-item-right {
-            -webkit-transform: translate3d(0, 0, 0);
-            transform: translate3d(0, 0, 0);
-        }
-    }
-
-    -webkit-transform: translateX(-100%);
-    transform: translateX(-100%);
-
-    @supports ((-webkit-transform-style: preserve-3d) or (transform-style: preserve-3d)) {
-        & {
-            -webkit-transform: translate3d(-100%, 0, 0);
-            transform: translate3d(-100%, 0, 0);
-        }
-    }
-`;
-
 export const clearfix = css`
     &::after {
         display: block;
@@ -3845,7 +3851,6 @@ export const col = css`
 
     -ms-flex-preferred-size: 0;
     flex-basis: 0;
-    -webkit-box-flex: 1;
     -ms-flex-positive: 1;
     flex-grow: 1;
     max-width: 100%;
@@ -3858,7 +3863,6 @@ export const col1 = css`
     padding-right: 15px;
     padding-left: 15px;
 
-    -webkit-box-flex: 0;
     -ms-flex: 0 0 8.333333%;
     flex: 0 0 8.333333%;
     max-width: 8.333333%;
@@ -3871,7 +3875,6 @@ export const col2 = css`
     padding-right: 15px;
     padding-left: 15px;
 
-    -webkit-box-flex: 0;
     -ms-flex: 0 0 16.666667%;
     flex: 0 0 16.666667%;
     max-width: 16.666667%;
@@ -3884,7 +3887,6 @@ export const col3 = css`
     padding-right: 15px;
     padding-left: 15px;
 
-    -webkit-box-flex: 0;
     -ms-flex: 0 0 25%;
     flex: 0 0 25%;
     max-width: 25%;
@@ -3897,7 +3899,6 @@ export const col4 = css`
     padding-right: 15px;
     padding-left: 15px;
 
-    -webkit-box-flex: 0;
     -ms-flex: 0 0 33.333333%;
     flex: 0 0 33.333333%;
     max-width: 33.333333%;
@@ -3910,7 +3911,6 @@ export const col5 = css`
     padding-right: 15px;
     padding-left: 15px;
 
-    -webkit-box-flex: 0;
     -ms-flex: 0 0 41.666667%;
     flex: 0 0 41.666667%;
     max-width: 41.666667%;
@@ -3923,7 +3923,6 @@ export const col6 = css`
     padding-right: 15px;
     padding-left: 15px;
 
-    -webkit-box-flex: 0;
     -ms-flex: 0 0 50%;
     flex: 0 0 50%;
     max-width: 50%;
@@ -3936,7 +3935,6 @@ export const col7 = css`
     padding-right: 15px;
     padding-left: 15px;
 
-    -webkit-box-flex: 0;
     -ms-flex: 0 0 58.333333%;
     flex: 0 0 58.333333%;
     max-width: 58.333333%;
@@ -3949,7 +3947,6 @@ export const col8 = css`
     padding-right: 15px;
     padding-left: 15px;
 
-    -webkit-box-flex: 0;
     -ms-flex: 0 0 66.666667%;
     flex: 0 0 66.666667%;
     max-width: 66.666667%;
@@ -3962,7 +3959,6 @@ export const col9 = css`
     padding-right: 15px;
     padding-left: 15px;
 
-    -webkit-box-flex: 0;
     -ms-flex: 0 0 75%;
     flex: 0 0 75%;
     max-width: 75%;
@@ -3975,7 +3971,6 @@ export const col10 = css`
     padding-right: 15px;
     padding-left: 15px;
 
-    -webkit-box-flex: 0;
     -ms-flex: 0 0 83.333333%;
     flex: 0 0 83.333333%;
     max-width: 83.333333%;
@@ -3988,7 +3983,6 @@ export const col11 = css`
     padding-right: 15px;
     padding-left: 15px;
 
-    -webkit-box-flex: 0;
     -ms-flex: 0 0 91.666667%;
     flex: 0 0 91.666667%;
     max-width: 91.666667%;
@@ -4001,7 +3995,6 @@ export const col12 = css`
     padding-right: 15px;
     padding-left: 15px;
 
-    -webkit-box-flex: 0;
     -ms-flex: 0 0 100%;
     flex: 0 0 100%;
     max-width: 100%;
@@ -4014,7 +4007,6 @@ export const colAuto = css`
     padding-right: 15px;
     padding-left: 15px;
 
-    -webkit-box-flex: 0;
     -ms-flex: 0 0 auto;
     flex: 0 0 auto;
     width: auto;
@@ -4054,7 +4046,6 @@ export const colLg = css`
         & {
             -ms-flex-preferred-size: 0;
             flex-basis: 0;
-            -webkit-box-flex: 1;
             -ms-flex-positive: 1;
             flex-grow: 1;
             max-width: 100%;
@@ -4071,7 +4062,6 @@ export const colLg1 = css`
 
     @media (min-width: 992px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 8.333333%;
             flex: 0 0 8.333333%;
             max-width: 8.333333%;
@@ -4088,7 +4078,6 @@ export const colLg2 = css`
 
     @media (min-width: 992px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 16.666667%;
             flex: 0 0 16.666667%;
             max-width: 16.666667%;
@@ -4105,7 +4094,6 @@ export const colLg3 = css`
 
     @media (min-width: 992px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 25%;
             flex: 0 0 25%;
             max-width: 25%;
@@ -4122,7 +4110,6 @@ export const colLg4 = css`
 
     @media (min-width: 992px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 33.333333%;
             flex: 0 0 33.333333%;
             max-width: 33.333333%;
@@ -4139,7 +4126,6 @@ export const colLg5 = css`
 
     @media (min-width: 992px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 41.666667%;
             flex: 0 0 41.666667%;
             max-width: 41.666667%;
@@ -4156,7 +4142,6 @@ export const colLg6 = css`
 
     @media (min-width: 992px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 50%;
             flex: 0 0 50%;
             max-width: 50%;
@@ -4173,7 +4158,6 @@ export const colLg7 = css`
 
     @media (min-width: 992px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 58.333333%;
             flex: 0 0 58.333333%;
             max-width: 58.333333%;
@@ -4190,7 +4174,6 @@ export const colLg8 = css`
 
     @media (min-width: 992px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 66.666667%;
             flex: 0 0 66.666667%;
             max-width: 66.666667%;
@@ -4207,7 +4190,6 @@ export const colLg9 = css`
 
     @media (min-width: 992px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 75%;
             flex: 0 0 75%;
             max-width: 75%;
@@ -4224,7 +4206,6 @@ export const colLg10 = css`
 
     @media (min-width: 992px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 83.333333%;
             flex: 0 0 83.333333%;
             max-width: 83.333333%;
@@ -4241,7 +4222,6 @@ export const colLg11 = css`
 
     @media (min-width: 992px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 91.666667%;
             flex: 0 0 91.666667%;
             max-width: 91.666667%;
@@ -4258,7 +4238,6 @@ export const colLg12 = css`
 
     @media (min-width: 992px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 100%;
             flex: 0 0 100%;
             max-width: 100%;
@@ -4275,7 +4254,6 @@ export const colLgAuto = css`
 
     @media (min-width: 992px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 auto;
             flex: 0 0 auto;
             width: auto;
@@ -4295,7 +4273,6 @@ export const colMd = css`
         & {
             -ms-flex-preferred-size: 0;
             flex-basis: 0;
-            -webkit-box-flex: 1;
             -ms-flex-positive: 1;
             flex-grow: 1;
             max-width: 100%;
@@ -4312,7 +4289,6 @@ export const colMd1 = css`
 
     @media (min-width: 768px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 8.333333%;
             flex: 0 0 8.333333%;
             max-width: 8.333333%;
@@ -4329,7 +4305,6 @@ export const colMd2 = css`
 
     @media (min-width: 768px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 16.666667%;
             flex: 0 0 16.666667%;
             max-width: 16.666667%;
@@ -4346,7 +4321,6 @@ export const colMd3 = css`
 
     @media (min-width: 768px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 25%;
             flex: 0 0 25%;
             max-width: 25%;
@@ -4363,7 +4337,6 @@ export const colMd4 = css`
 
     @media (min-width: 768px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 33.333333%;
             flex: 0 0 33.333333%;
             max-width: 33.333333%;
@@ -4380,7 +4353,6 @@ export const colMd5 = css`
 
     @media (min-width: 768px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 41.666667%;
             flex: 0 0 41.666667%;
             max-width: 41.666667%;
@@ -4397,7 +4369,6 @@ export const colMd6 = css`
 
     @media (min-width: 768px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 50%;
             flex: 0 0 50%;
             max-width: 50%;
@@ -4414,7 +4385,6 @@ export const colMd7 = css`
 
     @media (min-width: 768px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 58.333333%;
             flex: 0 0 58.333333%;
             max-width: 58.333333%;
@@ -4431,7 +4401,6 @@ export const colMd8 = css`
 
     @media (min-width: 768px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 66.666667%;
             flex: 0 0 66.666667%;
             max-width: 66.666667%;
@@ -4448,7 +4417,6 @@ export const colMd9 = css`
 
     @media (min-width: 768px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 75%;
             flex: 0 0 75%;
             max-width: 75%;
@@ -4465,7 +4433,6 @@ export const colMd10 = css`
 
     @media (min-width: 768px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 83.333333%;
             flex: 0 0 83.333333%;
             max-width: 83.333333%;
@@ -4482,7 +4449,6 @@ export const colMd11 = css`
 
     @media (min-width: 768px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 91.666667%;
             flex: 0 0 91.666667%;
             max-width: 91.666667%;
@@ -4499,7 +4465,6 @@ export const colMd12 = css`
 
     @media (min-width: 768px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 100%;
             flex: 0 0 100%;
             max-width: 100%;
@@ -4516,7 +4481,6 @@ export const colMdAuto = css`
 
     @media (min-width: 768px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 auto;
             flex: 0 0 auto;
             width: auto;
@@ -4536,7 +4500,6 @@ export const colSm = css`
         & {
             -ms-flex-preferred-size: 0;
             flex-basis: 0;
-            -webkit-box-flex: 1;
             -ms-flex-positive: 1;
             flex-grow: 1;
             max-width: 100%;
@@ -4553,7 +4516,6 @@ export const colSm1 = css`
 
     @media (min-width: 576px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 8.333333%;
             flex: 0 0 8.333333%;
             max-width: 8.333333%;
@@ -4570,7 +4532,6 @@ export const colSm2 = css`
 
     @media (min-width: 576px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 16.666667%;
             flex: 0 0 16.666667%;
             max-width: 16.666667%;
@@ -4587,7 +4548,6 @@ export const colSm3 = css`
 
     @media (min-width: 576px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 25%;
             flex: 0 0 25%;
             max-width: 25%;
@@ -4604,7 +4564,6 @@ export const colSm4 = css`
 
     @media (min-width: 576px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 33.333333%;
             flex: 0 0 33.333333%;
             max-width: 33.333333%;
@@ -4621,7 +4580,6 @@ export const colSm5 = css`
 
     @media (min-width: 576px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 41.666667%;
             flex: 0 0 41.666667%;
             max-width: 41.666667%;
@@ -4638,7 +4596,6 @@ export const colSm6 = css`
 
     @media (min-width: 576px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 50%;
             flex: 0 0 50%;
             max-width: 50%;
@@ -4655,7 +4612,6 @@ export const colSm7 = css`
 
     @media (min-width: 576px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 58.333333%;
             flex: 0 0 58.333333%;
             max-width: 58.333333%;
@@ -4672,7 +4628,6 @@ export const colSm8 = css`
 
     @media (min-width: 576px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 66.666667%;
             flex: 0 0 66.666667%;
             max-width: 66.666667%;
@@ -4689,7 +4644,6 @@ export const colSm9 = css`
 
     @media (min-width: 576px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 75%;
             flex: 0 0 75%;
             max-width: 75%;
@@ -4706,7 +4660,6 @@ export const colSm10 = css`
 
     @media (min-width: 576px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 83.333333%;
             flex: 0 0 83.333333%;
             max-width: 83.333333%;
@@ -4723,7 +4676,6 @@ export const colSm11 = css`
 
     @media (min-width: 576px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 91.666667%;
             flex: 0 0 91.666667%;
             max-width: 91.666667%;
@@ -4740,7 +4692,6 @@ export const colSm12 = css`
 
     @media (min-width: 576px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 100%;
             flex: 0 0 100%;
             max-width: 100%;
@@ -4757,7 +4708,6 @@ export const colSmAuto = css`
 
     @media (min-width: 576px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 auto;
             flex: 0 0 auto;
             width: auto;
@@ -4777,7 +4727,6 @@ export const colXl = css`
         & {
             -ms-flex-preferred-size: 0;
             flex-basis: 0;
-            -webkit-box-flex: 1;
             -ms-flex-positive: 1;
             flex-grow: 1;
             max-width: 100%;
@@ -4794,7 +4743,6 @@ export const colXl1 = css`
 
     @media (min-width: 1200px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 8.333333%;
             flex: 0 0 8.333333%;
             max-width: 8.333333%;
@@ -4811,7 +4759,6 @@ export const colXl2 = css`
 
     @media (min-width: 1200px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 16.666667%;
             flex: 0 0 16.666667%;
             max-width: 16.666667%;
@@ -4828,7 +4775,6 @@ export const colXl3 = css`
 
     @media (min-width: 1200px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 25%;
             flex: 0 0 25%;
             max-width: 25%;
@@ -4845,7 +4791,6 @@ export const colXl4 = css`
 
     @media (min-width: 1200px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 33.333333%;
             flex: 0 0 33.333333%;
             max-width: 33.333333%;
@@ -4862,7 +4807,6 @@ export const colXl5 = css`
 
     @media (min-width: 1200px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 41.666667%;
             flex: 0 0 41.666667%;
             max-width: 41.666667%;
@@ -4879,7 +4823,6 @@ export const colXl6 = css`
 
     @media (min-width: 1200px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 50%;
             flex: 0 0 50%;
             max-width: 50%;
@@ -4896,7 +4839,6 @@ export const colXl7 = css`
 
     @media (min-width: 1200px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 58.333333%;
             flex: 0 0 58.333333%;
             max-width: 58.333333%;
@@ -4913,7 +4855,6 @@ export const colXl8 = css`
 
     @media (min-width: 1200px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 66.666667%;
             flex: 0 0 66.666667%;
             max-width: 66.666667%;
@@ -4930,7 +4871,6 @@ export const colXl9 = css`
 
     @media (min-width: 1200px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 75%;
             flex: 0 0 75%;
             max-width: 75%;
@@ -4947,7 +4887,6 @@ export const colXl10 = css`
 
     @media (min-width: 1200px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 83.333333%;
             flex: 0 0 83.333333%;
             max-width: 83.333333%;
@@ -4964,7 +4903,6 @@ export const colXl11 = css`
 
     @media (min-width: 1200px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 91.666667%;
             flex: 0 0 91.666667%;
             max-width: 91.666667%;
@@ -4981,7 +4919,6 @@ export const colXl12 = css`
 
     @media (min-width: 1200px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 100%;
             flex: 0 0 100%;
             max-width: 100%;
@@ -4998,7 +4935,6 @@ export const colXlAuto = css`
 
     @media (min-width: 1200px) {
         & {
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 auto;
             flex: 0 0 auto;
             width: auto;
@@ -5170,18 +5106,8 @@ export const show = css`& > .${btnPrimary}.${dropdownToggle} {
 `;
 
 export const collapse = css`
-    display: none;
-
-    &.${show} {
-        display: block;
-    }
-
-    tr&.${show} {
-        display: table-row;
-    }
-
-    tbody&.${show} {
-        display: table-row-group;
+    &:not(.${show}) {
+        display: none;
     }
 `;
 
@@ -5190,6 +5116,12 @@ export const collapsing = css`
     height: 0;
     overflow: hidden;
     transition: height 0.35s ease;
+
+    @media screen and (prefers-reduced-motion: reduce) {
+        & {
+            transition: none;
+        }
+    }
 `;
 
 export const container = css`
@@ -5239,12 +5171,13 @@ export const containerFluid = css`
 `;
 
 export const customControlLabel = css`
+    position: relative;
     margin-bottom: 0;
 
     &::before {
         position: absolute;
         top: 0.25rem;
-        left: 0;
+        left: -1.5rem;
         display: block;
         width: 1rem;
         height: 1rem;
@@ -5260,7 +5193,7 @@ export const customControlLabel = css`
     &::after {
         position: absolute;
         top: 0.25rem;
-        left: 0;
+        left: -1.5rem;
         display: block;
         width: 1rem;
         height: 1rem;
@@ -5268,6 +5201,17 @@ export const customControlLabel = css`
         background-repeat: no-repeat;
         background-position: center center;
         background-size: 50% 50%;
+    }
+
+    &::before {
+        transition: background-color 0.15s ease-in-out,
+            border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+
+    @media screen and (prefers-reduced-motion: reduce) {
+        &::before {
+            transition: none;
+        }
     }
 `;
 
@@ -5379,7 +5323,6 @@ export const customControl = css`
 `;
 
 export const customControlInline = css`
-    display: -webkit-inline-box;
     display: -ms-inline-flexbox;
     display: inline-flex;
     margin-right: 1rem;
@@ -5460,7 +5403,7 @@ export const customFileLabel = css`
         bottom: 0;
         z-index: 3;
         display: block;
-        height: calc(calc(2.25rem + 2px) - 1px * 2);
+        height: 2.25rem;
         padding: 0.375rem 0.75rem;
         line-height: 1.5;
         color: #495057;
@@ -5468,6 +5411,15 @@ export const customFileLabel = css`
         background-color: #e9ecef;
         border-left: 1px solid #ced4da;
         border-radius: 0 0.25rem 0.25rem 0;
+    }
+
+    transition: background-color 0.15s ease-in-out,
+        border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+    @media screen and (prefers-reduced-motion: reduce) {
+        & {
+            transition: none;
+        }
     }
 `;
 
@@ -5511,13 +5463,17 @@ export const customFileInput = css`
     margin: 0;
     opacity: 0;
 
-    &:focus ~ .custom-file-control {
+    &:focus ~ .${customFileLabel} {
         border-color: #80bdff;
         box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
     }
 
-    &:focus ~ .custom-file-control::before {
+    &:focus ~ .${customFileLabel}::after {
         border-color: #80bdff;
+    }
+
+    &:disabled ~ .${customFileLabel} {
+        background-color: #e9ecef;
     }
 
     &:lang(en) ~ .${customFileLabel}::after {
@@ -5540,6 +5496,145 @@ export const customRadio = css`
 
     & .${customControlInput}:disabled:checked ~ .${customControlLabel}::before {
         background-color: rgba(0, 123, 255, 0.5);
+    }
+`;
+
+export const customRange = css`
+    width: 100%;
+    padding-left: 0;
+    background-color: transparent;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    &:focus {
+        outline: none;
+    }
+
+    &::-moz-focus-outer {
+        border: 0;
+    }
+
+    &::-webkit-slider-thumb {
+        width: 1rem;
+        height: 1rem;
+        margin-top: -0.25rem;
+        background-color: #007bff;
+        border: 0;
+        border-radius: 1rem;
+        transition: background-color 0.15s ease-in-out,
+            border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        -webkit-appearance: none;
+        appearance: none;
+    }
+
+    @media screen and (prefers-reduced-motion: reduce) {
+        &::-webkit-slider-thumb {
+            transition: none;
+        }
+    }
+
+    &::-webkit-slider-thumb:focus {
+        outline: none;
+        box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+
+    &::-webkit-slider-thumb:active {
+        background-color: #b3d7ff;
+    }
+
+    &::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 0.5rem;
+        color: transparent;
+        cursor: pointer;
+        background-color: #dee2e6;
+        border-color: transparent;
+        border-radius: 1rem;
+    }
+
+    &::-moz-range-thumb {
+        width: 1rem;
+        height: 1rem;
+        background-color: #007bff;
+        border: 0;
+        border-radius: 1rem;
+        transition: background-color 0.15s ease-in-out,
+            border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        -moz-appearance: none;
+        appearance: none;
+    }
+
+    @media screen and (prefers-reduced-motion: reduce) {
+        &::-moz-range-thumb {
+            transition: none;
+        }
+    }
+
+    &::-moz-range-thumb:focus {
+        outline: none;
+        box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+
+    &::-moz-range-thumb:active {
+        background-color: #b3d7ff;
+    }
+
+    &::-moz-range-track {
+        width: 100%;
+        height: 0.5rem;
+        color: transparent;
+        cursor: pointer;
+        background-color: #dee2e6;
+        border-color: transparent;
+        border-radius: 1rem;
+    }
+
+    &::-ms-thumb {
+        width: 1rem;
+        height: 1rem;
+        background-color: #007bff;
+        border: 0;
+        border-radius: 1rem;
+        transition: background-color 0.15s ease-in-out,
+            border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        appearance: none;
+    }
+
+    @media screen and (prefers-reduced-motion: reduce) {
+        &::-ms-thumb {
+            transition: none;
+        }
+    }
+
+    &::-ms-thumb:focus {
+        outline: none;
+        box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+
+    &::-ms-thumb:active {
+        background-color: #b3d7ff;
+    }
+
+    &::-ms-track {
+        width: 100%;
+        height: 0.5rem;
+        color: transparent;
+        cursor: pointer;
+        background-color: transparent;
+        border-color: transparent;
+        border-width: 0.5rem;
+    }
+
+    &::-ms-fill-lower {
+        background-color: #dee2e6;
+        border-radius: 1rem;
+    }
+
+    &::-ms-fill-upper {
+        margin-right: 15px;
+        background-color: #dee2e6;
+        border-radius: 1rem;
     }
 `;
 
@@ -5590,8 +5685,7 @@ export const customSelect = css`
     &:focus {
         border-color: #80bdff;
         outline: 0;
-        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075),
-            0 0 5px rgba(128, 189, 255, 0.5);
+        box-shadow: 0 0 0 0.2rem rgba(128, 189, 255, 0.5);
     }
 
     &:focus::-ms-value {
@@ -5614,6 +5708,15 @@ export const customSelect = css`
     &::-ms-expand {
         opacity: 0;
     }
+
+    transition: background-color 0.15s ease-in-out,
+        border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+    @media screen and (prefers-reduced-motion: reduce) {
+        & {
+            transition: none;
+        }
+    }
 `;
 
 export const customSelectLg = css`
@@ -5635,7 +5738,6 @@ export const dBlock = css`
 `;
 
 export const dFlex = css`
-    display: -webkit-box !important;
     display: -ms-flexbox !important;
     display: flex !important;
 `;
@@ -5649,7 +5751,6 @@ export const dInlineBlock = css`
 `;
 
 export const dInlineFlex = css`
-    display: -webkit-inline-box !important;
     display: -ms-inline-flexbox !important;
     display: inline-flex !important;
 `;
@@ -5665,7 +5766,6 @@ export const dLgBlock = css`
 export const dLgFlex = css`
     @media (min-width: 992px) {
         & {
-            display: -webkit-box !important;
             display: -ms-flexbox !important;
             display: flex !important;
         }
@@ -5691,7 +5791,6 @@ export const dLgInlineBlock = css`
 export const dLgInlineFlex = css`
     @media (min-width: 992px) {
         & {
-            display: -webkit-inline-box !important;
             display: -ms-inline-flexbox !important;
             display: inline-flex !important;
         }
@@ -5741,7 +5840,6 @@ export const dMdBlock = css`
 export const dMdFlex = css`
     @media (min-width: 768px) {
         & {
-            display: -webkit-box !important;
             display: -ms-flexbox !important;
             display: flex !important;
         }
@@ -5767,7 +5865,6 @@ export const dMdInlineBlock = css`
 export const dMdInlineFlex = css`
     @media (min-width: 768px) {
         & {
-            display: -webkit-inline-box !important;
             display: -ms-inline-flexbox !important;
             display: inline-flex !important;
         }
@@ -5821,7 +5918,6 @@ export const dPrintBlock = css`
 export const dPrintFlex = css`
     @media print {
         & {
-            display: -webkit-box !important;
             display: -ms-flexbox !important;
             display: flex !important;
         }
@@ -5847,7 +5943,6 @@ export const dPrintInlineBlock = css`
 export const dPrintInlineFlex = css`
     @media print {
         & {
-            display: -webkit-inline-box !important;
             display: -ms-inline-flexbox !important;
             display: inline-flex !important;
         }
@@ -5897,7 +5992,6 @@ export const dSmBlock = css`
 export const dSmFlex = css`
     @media (min-width: 576px) {
         & {
-            display: -webkit-box !important;
             display: -ms-flexbox !important;
             display: flex !important;
         }
@@ -5923,7 +6017,6 @@ export const dSmInlineBlock = css`
 export const dSmInlineFlex = css`
     @media (min-width: 576px) {
         & {
-            display: -webkit-inline-box !important;
             display: -ms-inline-flexbox !important;
             display: inline-flex !important;
         }
@@ -5985,7 +6078,6 @@ export const dXlBlock = css`
 export const dXlFlex = css`
     @media (min-width: 1200px) {
         & {
-            display: -webkit-box !important;
             display: -ms-flexbox !important;
             display: flex !important;
         }
@@ -6011,7 +6103,6 @@ export const dXlInlineBlock = css`
 export const dXlInlineFlex = css`
     @media (min-width: 1200px) {
         & {
-            display: -webkit-inline-box !important;
             display: -ms-inline-flexbox !important;
             display: inline-flex !important;
         }
@@ -6126,6 +6217,12 @@ export const dropdownItem = css`
     }
 `;
 
+export const dropdownItemText = css`
+    display: block;
+    padding: 0.25rem 1.5rem;
+    color: #212529;
+`;
+
 export const dropdownMenu = css`
     position: absolute;
     top: 100%;
@@ -6145,13 +6242,31 @@ export const dropdownMenu = css`
     border: 1px solid rgba(0, 0, 0, 0.15);
     border-radius: 0.25rem;
 
+    &[x-placement^="top"],
+    &[x-placement^="right"],
+    &[x-placement^="bottom"],
+    &[x-placement^="left"] {
+        right: auto;
+        bottom: auto;
+    }
+
     &.${show} {
         display: block;
     }
 `;
 
+export const dropdownMenuRight = css`
+    right: 0;
+    left: auto;
+`;
+
 export const dropleft = css`
+    position: relative;
+
     & .${dropdownMenu} {
+        top: 0;
+        right: 100%;
+        left: auto;
         margin-top: 0;
         margin-right: 0.125rem;
     }
@@ -6188,10 +6303,19 @@ export const dropleft = css`
     & .${dropdownToggle}::before {
         vertical-align: 0;
     }
+
+    & .${dropdownToggleSplit}::before {
+        margin-right: 0;
+    }
 `;
 
 export const dropright = css`
+    position: relative;
+
     & .${dropdownMenu} {
+        top: 0;
+        right: auto;
+        left: 100%;
         margin-top: 0;
         margin-left: 0.125rem;
     }
@@ -6204,6 +6328,7 @@ export const dropright = css`
         vertical-align: 0.255em;
         content: "";
         border-top: 0.3em solid transparent;
+        border-right: 0;
         border-bottom: 0.3em solid transparent;
         border-left: 0.3em solid;
     }
@@ -6215,12 +6340,18 @@ export const dropright = css`
     & .${dropdownToggle}::after {
         vertical-align: 0;
     }
+
+    & .${dropdownToggleSplit}::after {
+        margin-left: 0;
+    }
 `;
 
 export const dropup = css`
     position: relative;
 
     & .${dropdownMenu} {
+        top: auto;
+        bottom: 100%;
         margin-top: 0;
         margin-bottom: 0.125rem;
     }
@@ -6239,6 +6370,10 @@ export const dropup = css`
     }
 
     & .${dropdownToggle}:empty::after {
+        margin-left: 0;
+    }
+
+    & .${dropdownToggleSplit}::after {
         margin-left: 0;
     }
 `;
@@ -6295,11 +6430,16 @@ export const embedResponsive21by9 = css`
 `;
 
 export const fade = css`
-    opacity: 0;
     transition: opacity 0.15s linear;
 
-    &.${show} {
-        opacity: 1;
+    @media screen and (prefers-reduced-motion: reduce) {
+        & {
+            transition: none;
+        }
+    }
+
+    &:not(.${show}) {
+        opacity: 0;
     }
 `;
 
@@ -6334,24 +6474,33 @@ export const fixedTop = css`
 `;
 
 export const flexColumn = css`
-    -webkit-box-orient: vertical !important;
-    -webkit-box-direction: normal !important;
     -ms-flex-direction: column !important;
     flex-direction: column !important;
 `;
 
 export const flexColumnReverse = css`
-    -webkit-box-orient: vertical !important;
-    -webkit-box-direction: reverse !important;
     -ms-flex-direction: column-reverse !important;
     flex-direction: column-reverse !important;
+`;
+
+export const flexFill = css`
+    -ms-flex: 1 1 auto !important;
+    flex: 1 1 auto !important;
+`;
+
+export const flexGrow0 = css`
+    -ms-flex-positive: 0 !important;
+    flex-grow: 0 !important;
+`;
+
+export const flexGrow1 = css`
+    -ms-flex-positive: 1 !important;
+    flex-grow: 1 !important;
 `;
 
 export const flexLgColumn = css`
     @media (min-width: 992px) {
         & {
-            -webkit-box-orient: vertical !important;
-            -webkit-box-direction: normal !important;
             -ms-flex-direction: column !important;
             flex-direction: column !important;
         }
@@ -6361,10 +6510,35 @@ export const flexLgColumn = css`
 export const flexLgColumnReverse = css`
     @media (min-width: 992px) {
         & {
-            -webkit-box-orient: vertical !important;
-            -webkit-box-direction: reverse !important;
             -ms-flex-direction: column-reverse !important;
             flex-direction: column-reverse !important;
+        }
+    }
+`;
+
+export const flexLgFill = css`
+    @media (min-width: 992px) {
+        & {
+            -ms-flex: 1 1 auto !important;
+            flex: 1 1 auto !important;
+        }
+    }
+`;
+
+export const flexLgGrow0 = css`
+    @media (min-width: 992px) {
+        & {
+            -ms-flex-positive: 0 !important;
+            flex-grow: 0 !important;
+        }
+    }
+`;
+
+export const flexLgGrow1 = css`
+    @media (min-width: 992px) {
+        & {
+            -ms-flex-positive: 1 !important;
+            flex-grow: 1 !important;
         }
     }
 `;
@@ -6381,8 +6555,6 @@ export const flexLgNowrap = css`
 export const flexLgRow = css`
     @media (min-width: 992px) {
         & {
-            -webkit-box-orient: horizontal !important;
-            -webkit-box-direction: normal !important;
             -ms-flex-direction: row !important;
             flex-direction: row !important;
         }
@@ -6392,10 +6564,26 @@ export const flexLgRow = css`
 export const flexLgRowReverse = css`
     @media (min-width: 992px) {
         & {
-            -webkit-box-orient: horizontal !important;
-            -webkit-box-direction: reverse !important;
             -ms-flex-direction: row-reverse !important;
             flex-direction: row-reverse !important;
+        }
+    }
+`;
+
+export const flexLgShrink0 = css`
+    @media (min-width: 992px) {
+        & {
+            -ms-flex-negative: 0 !important;
+            flex-shrink: 0 !important;
+        }
+    }
+`;
+
+export const flexLgShrink1 = css`
+    @media (min-width: 992px) {
+        & {
+            -ms-flex-negative: 1 !important;
+            flex-shrink: 1 !important;
         }
     }
 `;
@@ -6421,8 +6609,6 @@ export const flexLgWrapReverse = css`
 export const flexMdColumn = css`
     @media (min-width: 768px) {
         & {
-            -webkit-box-orient: vertical !important;
-            -webkit-box-direction: normal !important;
             -ms-flex-direction: column !important;
             flex-direction: column !important;
         }
@@ -6432,10 +6618,35 @@ export const flexMdColumn = css`
 export const flexMdColumnReverse = css`
     @media (min-width: 768px) {
         & {
-            -webkit-box-orient: vertical !important;
-            -webkit-box-direction: reverse !important;
             -ms-flex-direction: column-reverse !important;
             flex-direction: column-reverse !important;
+        }
+    }
+`;
+
+export const flexMdFill = css`
+    @media (min-width: 768px) {
+        & {
+            -ms-flex: 1 1 auto !important;
+            flex: 1 1 auto !important;
+        }
+    }
+`;
+
+export const flexMdGrow0 = css`
+    @media (min-width: 768px) {
+        & {
+            -ms-flex-positive: 0 !important;
+            flex-grow: 0 !important;
+        }
+    }
+`;
+
+export const flexMdGrow1 = css`
+    @media (min-width: 768px) {
+        & {
+            -ms-flex-positive: 1 !important;
+            flex-grow: 1 !important;
         }
     }
 `;
@@ -6452,8 +6663,6 @@ export const flexMdNowrap = css`
 export const flexMdRow = css`
     @media (min-width: 768px) {
         & {
-            -webkit-box-orient: horizontal !important;
-            -webkit-box-direction: normal !important;
             -ms-flex-direction: row !important;
             flex-direction: row !important;
         }
@@ -6463,10 +6672,26 @@ export const flexMdRow = css`
 export const flexMdRowReverse = css`
     @media (min-width: 768px) {
         & {
-            -webkit-box-orient: horizontal !important;
-            -webkit-box-direction: reverse !important;
             -ms-flex-direction: row-reverse !important;
             flex-direction: row-reverse !important;
+        }
+    }
+`;
+
+export const flexMdShrink0 = css`
+    @media (min-width: 768px) {
+        & {
+            -ms-flex-negative: 0 !important;
+            flex-shrink: 0 !important;
+        }
+    }
+`;
+
+export const flexMdShrink1 = css`
+    @media (min-width: 768px) {
+        & {
+            -ms-flex-negative: 1 !important;
+            flex-shrink: 1 !important;
         }
     }
 `;
@@ -6495,24 +6720,28 @@ export const flexNowrap = css`
 `;
 
 export const flexRow = css`
-    -webkit-box-orient: horizontal !important;
-    -webkit-box-direction: normal !important;
     -ms-flex-direction: row !important;
     flex-direction: row !important;
 `;
 
 export const flexRowReverse = css`
-    -webkit-box-orient: horizontal !important;
-    -webkit-box-direction: reverse !important;
     -ms-flex-direction: row-reverse !important;
     flex-direction: row-reverse !important;
+`;
+
+export const flexShrink0 = css`
+    -ms-flex-negative: 0 !important;
+    flex-shrink: 0 !important;
+`;
+
+export const flexShrink1 = css`
+    -ms-flex-negative: 1 !important;
+    flex-shrink: 1 !important;
 `;
 
 export const flexSmColumn = css`
     @media (min-width: 576px) {
         & {
-            -webkit-box-orient: vertical !important;
-            -webkit-box-direction: normal !important;
             -ms-flex-direction: column !important;
             flex-direction: column !important;
         }
@@ -6522,10 +6751,35 @@ export const flexSmColumn = css`
 export const flexSmColumnReverse = css`
     @media (min-width: 576px) {
         & {
-            -webkit-box-orient: vertical !important;
-            -webkit-box-direction: reverse !important;
             -ms-flex-direction: column-reverse !important;
             flex-direction: column-reverse !important;
+        }
+    }
+`;
+
+export const flexSmFill = css`
+    @media (min-width: 576px) {
+        & {
+            -ms-flex: 1 1 auto !important;
+            flex: 1 1 auto !important;
+        }
+    }
+`;
+
+export const flexSmGrow0 = css`
+    @media (min-width: 576px) {
+        & {
+            -ms-flex-positive: 0 !important;
+            flex-grow: 0 !important;
+        }
+    }
+`;
+
+export const flexSmGrow1 = css`
+    @media (min-width: 576px) {
+        & {
+            -ms-flex-positive: 1 !important;
+            flex-grow: 1 !important;
         }
     }
 `;
@@ -6542,8 +6796,6 @@ export const flexSmNowrap = css`
 export const flexSmRow = css`
     @media (min-width: 576px) {
         & {
-            -webkit-box-orient: horizontal !important;
-            -webkit-box-direction: normal !important;
             -ms-flex-direction: row !important;
             flex-direction: row !important;
         }
@@ -6553,10 +6805,26 @@ export const flexSmRow = css`
 export const flexSmRowReverse = css`
     @media (min-width: 576px) {
         & {
-            -webkit-box-orient: horizontal !important;
-            -webkit-box-direction: reverse !important;
             -ms-flex-direction: row-reverse !important;
             flex-direction: row-reverse !important;
+        }
+    }
+`;
+
+export const flexSmShrink0 = css`
+    @media (min-width: 576px) {
+        & {
+            -ms-flex-negative: 0 !important;
+            flex-shrink: 0 !important;
+        }
+    }
+`;
+
+export const flexSmShrink1 = css`
+    @media (min-width: 576px) {
+        & {
+            -ms-flex-negative: 1 !important;
+            flex-shrink: 1 !important;
         }
     }
 `;
@@ -6592,8 +6860,6 @@ export const flexWrapReverse = css`
 export const flexXlColumn = css`
     @media (min-width: 1200px) {
         & {
-            -webkit-box-orient: vertical !important;
-            -webkit-box-direction: normal !important;
             -ms-flex-direction: column !important;
             flex-direction: column !important;
         }
@@ -6603,10 +6869,35 @@ export const flexXlColumn = css`
 export const flexXlColumnReverse = css`
     @media (min-width: 1200px) {
         & {
-            -webkit-box-orient: vertical !important;
-            -webkit-box-direction: reverse !important;
             -ms-flex-direction: column-reverse !important;
             flex-direction: column-reverse !important;
+        }
+    }
+`;
+
+export const flexXlFill = css`
+    @media (min-width: 1200px) {
+        & {
+            -ms-flex: 1 1 auto !important;
+            flex: 1 1 auto !important;
+        }
+    }
+`;
+
+export const flexXlGrow0 = css`
+    @media (min-width: 1200px) {
+        & {
+            -ms-flex-positive: 0 !important;
+            flex-grow: 0 !important;
+        }
+    }
+`;
+
+export const flexXlGrow1 = css`
+    @media (min-width: 1200px) {
+        & {
+            -ms-flex-positive: 1 !important;
+            flex-grow: 1 !important;
         }
     }
 `;
@@ -6623,8 +6914,6 @@ export const flexXlNowrap = css`
 export const flexXlRow = css`
     @media (min-width: 1200px) {
         & {
-            -webkit-box-orient: horizontal !important;
-            -webkit-box-direction: normal !important;
             -ms-flex-direction: row !important;
             flex-direction: row !important;
         }
@@ -6634,10 +6923,26 @@ export const flexXlRow = css`
 export const flexXlRowReverse = css`
     @media (min-width: 1200px) {
         & {
-            -webkit-box-orient: horizontal !important;
-            -webkit-box-direction: reverse !important;
             -ms-flex-direction: row-reverse !important;
             flex-direction: row-reverse !important;
+        }
+    }
+`;
+
+export const flexXlShrink0 = css`
+    @media (min-width: 1200px) {
+        & {
+            -ms-flex-negative: 0 !important;
+            flex-shrink: 0 !important;
+        }
+    }
+`;
+
+export const flexXlShrink1 = css`
+    @media (min-width: 1200px) {
+        & {
+            -ms-flex-negative: 1 !important;
+            flex-shrink: 1 !important;
         }
     }
 `;
@@ -6817,10 +7122,8 @@ export const formCheckInput = css`
 `;
 
 export const formCheckInline = css`
-    display: -webkit-inline-box;
     display: -ms-inline-flexbox;
     display: inline-flex;
-    -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
     padding-left: 0;
@@ -6850,6 +7153,12 @@ export const formControl = css`
     border: 1px solid #ced4da;
     border-radius: 0.25rem;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+    @media screen and (prefers-reduced-motion: reduce) {
+        & {
+            transition: none;
+        }
+    }
 
     &::-ms-expand {
         background-color: transparent;
@@ -6934,6 +7243,14 @@ export const formControl = css`
 export const formControlFile = css`
     display: block;
     width: 100%;
+
+    &.is-valid ~ .${validFeedback}, &.is-valid ~ .${validTooltip} {
+        display: block;
+    }
+
+    &.is-invalid ~ .${invalidFeedback}, &.is-invalid ~ .${invalidTooltip} {
+        display: block;
+    }
 `;
 
 export const formControlLg = css`
@@ -6965,6 +7282,7 @@ export const formControlPlaintext = css`
     padding-bottom: 0.375rem;
     margin-bottom: 0;
     line-height: 1.5;
+    color: #212529;
     background-color: transparent;
     border: solid transparent;
     border-width: 1px 0;
@@ -6985,14 +7303,10 @@ export const formGroup = css`
 `;
 
 export const formInline = css`
-    display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
     -ms-flex-flow: row wrap;
     flex-flow: row wrap;
-    -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
 
@@ -7002,30 +7316,22 @@ export const formInline = css`
 
     @media (min-width: 576px) {
         & label {
-            display: -webkit-box;
             display: -ms-flexbox;
             display: flex;
-            -webkit-box-align: center;
             -ms-flex-align: center;
             align-items: center;
-            -webkit-box-pack: center;
             -ms-flex-pack: center;
             justify-content: center;
             margin-bottom: 0;
         }
 
         & .${formGroup} {
-            display: -webkit-box;
             display: -ms-flexbox;
             display: flex;
-            -webkit-box-flex: 0;
             -ms-flex: 0 0 auto;
             flex: 0 0 auto;
-            -webkit-box-orient: horizontal;
-            -webkit-box-direction: normal;
             -ms-flex-flow: row wrap;
             flex-flow: row wrap;
-            -webkit-box-align: center;
             -ms-flex-align: center;
             align-items: center;
             margin-bottom: 0;
@@ -7041,18 +7347,15 @@ export const formInline = css`
             display: inline-block;
         }
 
-        & .${inputGroup} {
+        & .${inputGroup}, & .${customSelect} {
             width: auto;
         }
 
         & .${formCheck} {
-            display: -webkit-box;
             display: -ms-flexbox;
             display: flex;
-            -webkit-box-align: center;
             -ms-flex-align: center;
             align-items: center;
-            -webkit-box-pack: center;
             -ms-flex-pack: center;
             justify-content: center;
             width: auto;
@@ -7067,10 +7370,8 @@ export const formInline = css`
         }
 
         & .${customControl} {
-            -webkit-box-align: center;
             -ms-flex-align: center;
             align-items: center;
-            -webkit-box-pack: center;
             -ms-flex-pack: center;
             justify-content: center;
         }
@@ -7082,7 +7383,6 @@ export const formInline = css`
 `;
 
 export const formRow = css`
-    display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-wrap: wrap;
@@ -7115,6 +7415,10 @@ export const h75 = css`
 
 export const h100 = css`
     height: 100% !important;
+`;
+
+export const hAuto = css`
+    height: auto !important;
 `;
 
 export const h1 = css`
@@ -7197,7 +7501,6 @@ export const initialism = css`
 `;
 
 export const inputGroupPrepend = css`
-    display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
 
@@ -7225,10 +7528,8 @@ export const inputGroupPrepend = css`
 `;
 
 export const inputGroupText = css`
-    display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
     padding: 0.375rem 0.75rem;
@@ -7250,7 +7551,6 @@ export const inputGroupText = css`
 `;
 
 export const inputGroupAppend = css`
-    display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
 
@@ -7342,19 +7642,16 @@ export const justifyContentAround = css`
 `;
 
 export const justifyContentBetween = css`
-    -webkit-box-pack: justify !important;
     -ms-flex-pack: justify !important;
     justify-content: space-between !important;
 `;
 
 export const justifyContentCenter = css`
-    -webkit-box-pack: center !important;
     -ms-flex-pack: center !important;
     justify-content: center !important;
 `;
 
 export const justifyContentEnd = css`
-    -webkit-box-pack: end !important;
     -ms-flex-pack: end !important;
     justify-content: flex-end !important;
 `;
@@ -7371,7 +7668,6 @@ export const justifyContentLgAround = css`
 export const justifyContentLgBetween = css`
     @media (min-width: 992px) {
         & {
-            -webkit-box-pack: justify !important;
             -ms-flex-pack: justify !important;
             justify-content: space-between !important;
         }
@@ -7381,7 +7677,6 @@ export const justifyContentLgBetween = css`
 export const justifyContentLgCenter = css`
     @media (min-width: 992px) {
         & {
-            -webkit-box-pack: center !important;
             -ms-flex-pack: center !important;
             justify-content: center !important;
         }
@@ -7391,7 +7686,6 @@ export const justifyContentLgCenter = css`
 export const justifyContentLgEnd = css`
     @media (min-width: 992px) {
         & {
-            -webkit-box-pack: end !important;
             -ms-flex-pack: end !important;
             justify-content: flex-end !important;
         }
@@ -7401,7 +7695,6 @@ export const justifyContentLgEnd = css`
 export const justifyContentLgStart = css`
     @media (min-width: 992px) {
         & {
-            -webkit-box-pack: start !important;
             -ms-flex-pack: start !important;
             justify-content: flex-start !important;
         }
@@ -7420,7 +7713,6 @@ export const justifyContentMdAround = css`
 export const justifyContentMdBetween = css`
     @media (min-width: 768px) {
         & {
-            -webkit-box-pack: justify !important;
             -ms-flex-pack: justify !important;
             justify-content: space-between !important;
         }
@@ -7430,7 +7722,6 @@ export const justifyContentMdBetween = css`
 export const justifyContentMdCenter = css`
     @media (min-width: 768px) {
         & {
-            -webkit-box-pack: center !important;
             -ms-flex-pack: center !important;
             justify-content: center !important;
         }
@@ -7440,7 +7731,6 @@ export const justifyContentMdCenter = css`
 export const justifyContentMdEnd = css`
     @media (min-width: 768px) {
         & {
-            -webkit-box-pack: end !important;
             -ms-flex-pack: end !important;
             justify-content: flex-end !important;
         }
@@ -7450,7 +7740,6 @@ export const justifyContentMdEnd = css`
 export const justifyContentMdStart = css`
     @media (min-width: 768px) {
         & {
-            -webkit-box-pack: start !important;
             -ms-flex-pack: start !important;
             justify-content: flex-start !important;
         }
@@ -7469,7 +7758,6 @@ export const justifyContentSmAround = css`
 export const justifyContentSmBetween = css`
     @media (min-width: 576px) {
         & {
-            -webkit-box-pack: justify !important;
             -ms-flex-pack: justify !important;
             justify-content: space-between !important;
         }
@@ -7479,7 +7767,6 @@ export const justifyContentSmBetween = css`
 export const justifyContentSmCenter = css`
     @media (min-width: 576px) {
         & {
-            -webkit-box-pack: center !important;
             -ms-flex-pack: center !important;
             justify-content: center !important;
         }
@@ -7489,7 +7776,6 @@ export const justifyContentSmCenter = css`
 export const justifyContentSmEnd = css`
     @media (min-width: 576px) {
         & {
-            -webkit-box-pack: end !important;
             -ms-flex-pack: end !important;
             justify-content: flex-end !important;
         }
@@ -7499,7 +7785,6 @@ export const justifyContentSmEnd = css`
 export const justifyContentSmStart = css`
     @media (min-width: 576px) {
         & {
-            -webkit-box-pack: start !important;
             -ms-flex-pack: start !important;
             justify-content: flex-start !important;
         }
@@ -7507,7 +7792,6 @@ export const justifyContentSmStart = css`
 `;
 
 export const justifyContentStart = css`
-    -webkit-box-pack: start !important;
     -ms-flex-pack: start !important;
     justify-content: flex-start !important;
 `;
@@ -7524,7 +7808,6 @@ export const justifyContentXlAround = css`
 export const justifyContentXlBetween = css`
     @media (min-width: 1200px) {
         & {
-            -webkit-box-pack: justify !important;
             -ms-flex-pack: justify !important;
             justify-content: space-between !important;
         }
@@ -7534,7 +7817,6 @@ export const justifyContentXlBetween = css`
 export const justifyContentXlCenter = css`
     @media (min-width: 1200px) {
         & {
-            -webkit-box-pack: center !important;
             -ms-flex-pack: center !important;
             justify-content: center !important;
         }
@@ -7544,7 +7826,6 @@ export const justifyContentXlCenter = css`
 export const justifyContentXlEnd = css`
     @media (min-width: 1200px) {
         & {
-            -webkit-box-pack: end !important;
             -ms-flex-pack: end !important;
             justify-content: flex-end !important;
         }
@@ -7554,7 +7835,6 @@ export const justifyContentXlEnd = css`
 export const justifyContentXlStart = css`
     @media (min-width: 1200px) {
         & {
-            -webkit-box-pack: start !important;
             -ms-flex-pack: start !important;
             justify-content: flex-start !important;
         }
@@ -8272,16 +8552,13 @@ export const mbXlAuto = css`
 `;
 
 export const media = css`
-    display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-align: start;
     -ms-flex-align: start;
     align-items: flex-start;
 `;
 
 export const mediaBody = css`
-    -webkit-box-flex: 1;
     -ms-flex: 1;
     flex: 1;
 `;
@@ -8575,6 +8852,12 @@ export const modal = css`
         transform: translate(0, -25%);
     }
 
+    @media screen and (prefers-reduced-motion: reduce) {
+        &.${fade} .${modalDialog} {
+            transition: none;
+        }
+    }
+
     &.${show} .${modalDialog} {
         -webkit-transform: translate(0, 0);
         transform: translate(0, 0);
@@ -8601,7 +8884,6 @@ export const modalBackdrop = css`
 
 export const modalBody = css`
     position: relative;
-    -webkit-box-flex: 1;
     -ms-flex: 1 1 auto;
     flex: 1 1 auto;
     padding: 1rem;
@@ -8609,11 +8891,8 @@ export const modalBody = css`
 
 export const modalContent = css`
     position: relative;
-    display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
     -ms-flex-direction: column;
     flex-direction: column;
     width: 100%;
@@ -8626,10 +8905,8 @@ export const modalContent = css`
 `;
 
 export const modalDialogCentered = css`
-    display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
     min-height: calc(100% - (0.5rem * 2));
@@ -8642,13 +8919,10 @@ export const modalDialogCentered = css`
 `;
 
 export const modalFooter = css`
-    display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    -webkit-box-pack: end;
     -ms-flex-pack: end;
     justify-content: flex-end;
     padding: 1rem;
@@ -8664,13 +8938,10 @@ export const modalFooter = css`
 `;
 
 export const modalHeader = css`
-    display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-align: start;
     -ms-flex-align: start;
     align-items: flex-start;
-    -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
     padding: 1rem;
@@ -9987,7 +10258,6 @@ export const myXlAuto = css`
 `;
 
 export const nav = css`
-    display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-wrap: wrap;
@@ -9999,7 +10269,6 @@ export const nav = css`
 
 export const navFill = css`
     & .nav-item {
-        -webkit-box-flex: 1;
         -ms-flex: 1 1 auto;
         flex: 1 1 auto;
         text-align: center;
@@ -10010,7 +10279,6 @@ export const navJustified = css`
     & .nav-item {
         -ms-flex-preferred-size: 0;
         flex-basis: 0;
-        -webkit-box-flex: 1;
         -ms-flex-positive: 1;
         flex-grow: 1;
         text-align: center;
@@ -10082,29 +10350,23 @@ export const navTabs = css`
 
 export const navbar = css`
     position: relative;
-    display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
     padding: 0.5rem 1rem;
 
     & > .${container}, & > .${containerFluid} {
-        display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
         -ms-flex-wrap: wrap;
         flex-wrap: wrap;
-        -webkit-box-align: center;
         -ms-flex-align: center;
         align-items: center;
-        -webkit-box-pack: justify;
         -ms-flex-pack: justify;
         justify-content: space-between;
     }
@@ -10134,20 +10396,15 @@ export const navbarBrand = css`
 export const navbarCollapse = css`
     -ms-flex-preferred-size: 100%;
     flex-basis: 100%;
-    -webkit-box-flex: 1;
     -ms-flex-positive: 1;
     flex-grow: 1;
-    -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
 `;
 
 export const navbarNav = css`
-    display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
     -ms-flex-direction: column;
     flex-direction: column;
     padding-left: 0;
@@ -10247,11 +10504,8 @@ export const navbarDark = css`& .${navbarBrand} {
 `;
 
 export const navbarExpand = css`
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
     -ms-flex-flow: row nowrap;
     flex-flow: row nowrap;
-    -webkit-box-pack: start;
     -ms-flex-pack: start;
     justify-content: flex-start;
 
@@ -10261,19 +10515,12 @@ export const navbarExpand = css`
     }
 
     & .${navbarNav} {
-        -webkit-box-orient: horizontal;
-        -webkit-box-direction: normal;
         -ms-flex-direction: row;
         flex-direction: row;
     }
 
     & .${navbarNav} .${dropdownMenu} {
         position: absolute;
-    }
-
-    & .${navbarNav} .dropdown-menu-right {
-        right: 0;
-        left: auto;
     }
 
     & .${navbarNav} .${navLink} {
@@ -10287,7 +10534,6 @@ export const navbarExpand = css`
     }
 
     & .${navbarCollapse} {
-        display: -webkit-box !important;
         display: -ms-flexbox !important;
         display: flex !important;
         -ms-flex-preferred-size: auto;
@@ -10296,11 +10542,6 @@ export const navbarExpand = css`
 
     & .${navbarToggler} {
         display: none;
-    }
-
-    & .${dropup} .${dropdownMenu} {
-        top: auto;
-        bottom: 100%;
     }
 `;
 
@@ -10314,29 +10555,19 @@ export const navbarExpandLg = css`
 
     @media (min-width: 992px) {
         & {
-            -webkit-box-orient: horizontal;
-            -webkit-box-direction: normal;
             -ms-flex-flow: row nowrap;
             flex-flow: row nowrap;
-            -webkit-box-pack: start;
             -ms-flex-pack: start;
             justify-content: flex-start;
         }
 
         & .${navbarNav} {
-            -webkit-box-orient: horizontal;
-            -webkit-box-direction: normal;
             -ms-flex-direction: row;
             flex-direction: row;
         }
 
         & .${navbarNav} .${dropdownMenu} {
             position: absolute;
-        }
-
-        & .${navbarNav} .dropdown-menu-right {
-            right: 0;
-            left: auto;
         }
 
         & .${navbarNav} .${navLink} {
@@ -10350,7 +10581,6 @@ export const navbarExpandLg = css`
         }
 
         & .${navbarCollapse} {
-            display: -webkit-box !important;
             display: -ms-flexbox !important;
             display: flex !important;
             -ms-flex-preferred-size: auto;
@@ -10359,11 +10589,6 @@ export const navbarExpandLg = css`
 
         & .${navbarToggler} {
             display: none;
-        }
-
-        & .${dropup} .${dropdownMenu} {
-            top: auto;
-            bottom: 100%;
         }
     }
 `;
@@ -10378,29 +10603,19 @@ export const navbarExpandMd = css`
 
     @media (min-width: 768px) {
         & {
-            -webkit-box-orient: horizontal;
-            -webkit-box-direction: normal;
             -ms-flex-flow: row nowrap;
             flex-flow: row nowrap;
-            -webkit-box-pack: start;
             -ms-flex-pack: start;
             justify-content: flex-start;
         }
 
         & .${navbarNav} {
-            -webkit-box-orient: horizontal;
-            -webkit-box-direction: normal;
             -ms-flex-direction: row;
             flex-direction: row;
         }
 
         & .${navbarNav} .${dropdownMenu} {
             position: absolute;
-        }
-
-        & .${navbarNav} .dropdown-menu-right {
-            right: 0;
-            left: auto;
         }
 
         & .${navbarNav} .${navLink} {
@@ -10414,7 +10629,6 @@ export const navbarExpandMd = css`
         }
 
         & .${navbarCollapse} {
-            display: -webkit-box !important;
             display: -ms-flexbox !important;
             display: flex !important;
             -ms-flex-preferred-size: auto;
@@ -10423,11 +10637,6 @@ export const navbarExpandMd = css`
 
         & .${navbarToggler} {
             display: none;
-        }
-
-        & .${dropup} .${dropdownMenu} {
-            top: auto;
-            bottom: 100%;
         }
     }
 `;
@@ -10442,29 +10651,19 @@ export const navbarExpandSm = css`
 
     @media (min-width: 576px) {
         & {
-            -webkit-box-orient: horizontal;
-            -webkit-box-direction: normal;
             -ms-flex-flow: row nowrap;
             flex-flow: row nowrap;
-            -webkit-box-pack: start;
             -ms-flex-pack: start;
             justify-content: flex-start;
         }
 
         & .${navbarNav} {
-            -webkit-box-orient: horizontal;
-            -webkit-box-direction: normal;
             -ms-flex-direction: row;
             flex-direction: row;
         }
 
         & .${navbarNav} .${dropdownMenu} {
             position: absolute;
-        }
-
-        & .${navbarNav} .dropdown-menu-right {
-            right: 0;
-            left: auto;
         }
 
         & .${navbarNav} .${navLink} {
@@ -10478,7 +10677,6 @@ export const navbarExpandSm = css`
         }
 
         & .${navbarCollapse} {
-            display: -webkit-box !important;
             display: -ms-flexbox !important;
             display: flex !important;
             -ms-flex-preferred-size: auto;
@@ -10487,11 +10685,6 @@ export const navbarExpandSm = css`
 
         & .${navbarToggler} {
             display: none;
-        }
-
-        & .${dropup} .${dropdownMenu} {
-            top: auto;
-            bottom: 100%;
         }
     }
 `;
@@ -10506,29 +10699,19 @@ export const navbarExpandXl = css`
 
     @media (min-width: 1200px) {
         & {
-            -webkit-box-orient: horizontal;
-            -webkit-box-direction: normal;
             -ms-flex-flow: row nowrap;
             flex-flow: row nowrap;
-            -webkit-box-pack: start;
             -ms-flex-pack: start;
             justify-content: flex-start;
         }
 
         & .${navbarNav} {
-            -webkit-box-orient: horizontal;
-            -webkit-box-direction: normal;
             -ms-flex-direction: row;
             flex-direction: row;
         }
 
         & .${navbarNav} .${dropdownMenu} {
             position: absolute;
-        }
-
-        & .${navbarNav} .dropdown-menu-right {
-            right: 0;
-            left: auto;
         }
 
         & .${navbarNav} .${navLink} {
@@ -10542,7 +10725,6 @@ export const navbarExpandXl = css`
         }
 
         & .${navbarCollapse} {
-            display: -webkit-box !important;
             display: -ms-flexbox !important;
             display: flex !important;
             -ms-flex-preferred-size: auto;
@@ -10551,11 +10733,6 @@ export const navbarExpandXl = css`
 
         & .${navbarToggler} {
             display: none;
-        }
-
-        & .${dropup} .${dropdownMenu} {
-            top: auto;
-            bottom: 100%;
         }
     }
 `;
@@ -11046,91 +11223,76 @@ export const offsetXl11 = css`
 `;
 
 export const order0 = css`
-    -webkit-box-ordinal-group: 1;
     -ms-flex-order: 0;
     order: 0;
 `;
 
 export const order1 = css`
-    -webkit-box-ordinal-group: 2;
     -ms-flex-order: 1;
     order: 1;
 `;
 
 export const order2 = css`
-    -webkit-box-ordinal-group: 3;
     -ms-flex-order: 2;
     order: 2;
 `;
 
 export const order3 = css`
-    -webkit-box-ordinal-group: 4;
     -ms-flex-order: 3;
     order: 3;
 `;
 
 export const order4 = css`
-    -webkit-box-ordinal-group: 5;
     -ms-flex-order: 4;
     order: 4;
 `;
 
 export const order5 = css`
-    -webkit-box-ordinal-group: 6;
     -ms-flex-order: 5;
     order: 5;
 `;
 
 export const order6 = css`
-    -webkit-box-ordinal-group: 7;
     -ms-flex-order: 6;
     order: 6;
 `;
 
 export const order7 = css`
-    -webkit-box-ordinal-group: 8;
     -ms-flex-order: 7;
     order: 7;
 `;
 
 export const order8 = css`
-    -webkit-box-ordinal-group: 9;
     -ms-flex-order: 8;
     order: 8;
 `;
 
 export const order9 = css`
-    -webkit-box-ordinal-group: 10;
     -ms-flex-order: 9;
     order: 9;
 `;
 
 export const order10 = css`
-    -webkit-box-ordinal-group: 11;
     -ms-flex-order: 10;
     order: 10;
 `;
 
 export const order11 = css`
-    -webkit-box-ordinal-group: 12;
     -ms-flex-order: 11;
     order: 11;
 `;
 
 export const order12 = css`
-    -webkit-box-ordinal-group: 13;
     -ms-flex-order: 12;
     order: 12;
 `;
 
 export const orderFirst = css`
-    -webkit-box-ordinal-group: 0;
     -ms-flex-order: -1;
     order: -1;
 `;
 
 export const orderLast = css`
-    -webkit-box-ordinal-group: 14;
     -ms-flex-order: 13;
     order: 13;
 `;
@@ -11138,7 +11300,6 @@ export const orderLast = css`
 export const orderLg0 = css`
     @media (min-width: 992px) {
         & {
-            -webkit-box-ordinal-group: 1;
             -ms-flex-order: 0;
             order: 0;
         }
@@ -11148,7 +11309,6 @@ export const orderLg0 = css`
 export const orderLg1 = css`
     @media (min-width: 992px) {
         & {
-            -webkit-box-ordinal-group: 2;
             -ms-flex-order: 1;
             order: 1;
         }
@@ -11158,7 +11318,6 @@ export const orderLg1 = css`
 export const orderLg2 = css`
     @media (min-width: 992px) {
         & {
-            -webkit-box-ordinal-group: 3;
             -ms-flex-order: 2;
             order: 2;
         }
@@ -11168,7 +11327,6 @@ export const orderLg2 = css`
 export const orderLg3 = css`
     @media (min-width: 992px) {
         & {
-            -webkit-box-ordinal-group: 4;
             -ms-flex-order: 3;
             order: 3;
         }
@@ -11178,7 +11336,6 @@ export const orderLg3 = css`
 export const orderLg4 = css`
     @media (min-width: 992px) {
         & {
-            -webkit-box-ordinal-group: 5;
             -ms-flex-order: 4;
             order: 4;
         }
@@ -11188,7 +11345,6 @@ export const orderLg4 = css`
 export const orderLg5 = css`
     @media (min-width: 992px) {
         & {
-            -webkit-box-ordinal-group: 6;
             -ms-flex-order: 5;
             order: 5;
         }
@@ -11198,7 +11354,6 @@ export const orderLg5 = css`
 export const orderLg6 = css`
     @media (min-width: 992px) {
         & {
-            -webkit-box-ordinal-group: 7;
             -ms-flex-order: 6;
             order: 6;
         }
@@ -11208,7 +11363,6 @@ export const orderLg6 = css`
 export const orderLg7 = css`
     @media (min-width: 992px) {
         & {
-            -webkit-box-ordinal-group: 8;
             -ms-flex-order: 7;
             order: 7;
         }
@@ -11218,7 +11372,6 @@ export const orderLg7 = css`
 export const orderLg8 = css`
     @media (min-width: 992px) {
         & {
-            -webkit-box-ordinal-group: 9;
             -ms-flex-order: 8;
             order: 8;
         }
@@ -11228,7 +11381,6 @@ export const orderLg8 = css`
 export const orderLg9 = css`
     @media (min-width: 992px) {
         & {
-            -webkit-box-ordinal-group: 10;
             -ms-flex-order: 9;
             order: 9;
         }
@@ -11238,7 +11390,6 @@ export const orderLg9 = css`
 export const orderLg10 = css`
     @media (min-width: 992px) {
         & {
-            -webkit-box-ordinal-group: 11;
             -ms-flex-order: 10;
             order: 10;
         }
@@ -11248,7 +11399,6 @@ export const orderLg10 = css`
 export const orderLg11 = css`
     @media (min-width: 992px) {
         & {
-            -webkit-box-ordinal-group: 12;
             -ms-flex-order: 11;
             order: 11;
         }
@@ -11258,7 +11408,6 @@ export const orderLg11 = css`
 export const orderLg12 = css`
     @media (min-width: 992px) {
         & {
-            -webkit-box-ordinal-group: 13;
             -ms-flex-order: 12;
             order: 12;
         }
@@ -11268,7 +11417,6 @@ export const orderLg12 = css`
 export const orderLgFirst = css`
     @media (min-width: 992px) {
         & {
-            -webkit-box-ordinal-group: 0;
             -ms-flex-order: -1;
             order: -1;
         }
@@ -11278,7 +11426,6 @@ export const orderLgFirst = css`
 export const orderLgLast = css`
     @media (min-width: 992px) {
         & {
-            -webkit-box-ordinal-group: 14;
             -ms-flex-order: 13;
             order: 13;
         }
@@ -11288,7 +11435,6 @@ export const orderLgLast = css`
 export const orderMd0 = css`
     @media (min-width: 768px) {
         & {
-            -webkit-box-ordinal-group: 1;
             -ms-flex-order: 0;
             order: 0;
         }
@@ -11298,7 +11444,6 @@ export const orderMd0 = css`
 export const orderMd1 = css`
     @media (min-width: 768px) {
         & {
-            -webkit-box-ordinal-group: 2;
             -ms-flex-order: 1;
             order: 1;
         }
@@ -11308,7 +11453,6 @@ export const orderMd1 = css`
 export const orderMd2 = css`
     @media (min-width: 768px) {
         & {
-            -webkit-box-ordinal-group: 3;
             -ms-flex-order: 2;
             order: 2;
         }
@@ -11318,7 +11462,6 @@ export const orderMd2 = css`
 export const orderMd3 = css`
     @media (min-width: 768px) {
         & {
-            -webkit-box-ordinal-group: 4;
             -ms-flex-order: 3;
             order: 3;
         }
@@ -11328,7 +11471,6 @@ export const orderMd3 = css`
 export const orderMd4 = css`
     @media (min-width: 768px) {
         & {
-            -webkit-box-ordinal-group: 5;
             -ms-flex-order: 4;
             order: 4;
         }
@@ -11338,7 +11480,6 @@ export const orderMd4 = css`
 export const orderMd5 = css`
     @media (min-width: 768px) {
         & {
-            -webkit-box-ordinal-group: 6;
             -ms-flex-order: 5;
             order: 5;
         }
@@ -11348,7 +11489,6 @@ export const orderMd5 = css`
 export const orderMd6 = css`
     @media (min-width: 768px) {
         & {
-            -webkit-box-ordinal-group: 7;
             -ms-flex-order: 6;
             order: 6;
         }
@@ -11358,7 +11498,6 @@ export const orderMd6 = css`
 export const orderMd7 = css`
     @media (min-width: 768px) {
         & {
-            -webkit-box-ordinal-group: 8;
             -ms-flex-order: 7;
             order: 7;
         }
@@ -11368,7 +11507,6 @@ export const orderMd7 = css`
 export const orderMd8 = css`
     @media (min-width: 768px) {
         & {
-            -webkit-box-ordinal-group: 9;
             -ms-flex-order: 8;
             order: 8;
         }
@@ -11378,7 +11516,6 @@ export const orderMd8 = css`
 export const orderMd9 = css`
     @media (min-width: 768px) {
         & {
-            -webkit-box-ordinal-group: 10;
             -ms-flex-order: 9;
             order: 9;
         }
@@ -11388,7 +11525,6 @@ export const orderMd9 = css`
 export const orderMd10 = css`
     @media (min-width: 768px) {
         & {
-            -webkit-box-ordinal-group: 11;
             -ms-flex-order: 10;
             order: 10;
         }
@@ -11398,7 +11534,6 @@ export const orderMd10 = css`
 export const orderMd11 = css`
     @media (min-width: 768px) {
         & {
-            -webkit-box-ordinal-group: 12;
             -ms-flex-order: 11;
             order: 11;
         }
@@ -11408,7 +11543,6 @@ export const orderMd11 = css`
 export const orderMd12 = css`
     @media (min-width: 768px) {
         & {
-            -webkit-box-ordinal-group: 13;
             -ms-flex-order: 12;
             order: 12;
         }
@@ -11418,7 +11552,6 @@ export const orderMd12 = css`
 export const orderMdFirst = css`
     @media (min-width: 768px) {
         & {
-            -webkit-box-ordinal-group: 0;
             -ms-flex-order: -1;
             order: -1;
         }
@@ -11428,7 +11561,6 @@ export const orderMdFirst = css`
 export const orderMdLast = css`
     @media (min-width: 768px) {
         & {
-            -webkit-box-ordinal-group: 14;
             -ms-flex-order: 13;
             order: 13;
         }
@@ -11438,7 +11570,6 @@ export const orderMdLast = css`
 export const orderSm0 = css`
     @media (min-width: 576px) {
         & {
-            -webkit-box-ordinal-group: 1;
             -ms-flex-order: 0;
             order: 0;
         }
@@ -11448,7 +11579,6 @@ export const orderSm0 = css`
 export const orderSm1 = css`
     @media (min-width: 576px) {
         & {
-            -webkit-box-ordinal-group: 2;
             -ms-flex-order: 1;
             order: 1;
         }
@@ -11458,7 +11588,6 @@ export const orderSm1 = css`
 export const orderSm2 = css`
     @media (min-width: 576px) {
         & {
-            -webkit-box-ordinal-group: 3;
             -ms-flex-order: 2;
             order: 2;
         }
@@ -11468,7 +11597,6 @@ export const orderSm2 = css`
 export const orderSm3 = css`
     @media (min-width: 576px) {
         & {
-            -webkit-box-ordinal-group: 4;
             -ms-flex-order: 3;
             order: 3;
         }
@@ -11478,7 +11606,6 @@ export const orderSm3 = css`
 export const orderSm4 = css`
     @media (min-width: 576px) {
         & {
-            -webkit-box-ordinal-group: 5;
             -ms-flex-order: 4;
             order: 4;
         }
@@ -11488,7 +11615,6 @@ export const orderSm4 = css`
 export const orderSm5 = css`
     @media (min-width: 576px) {
         & {
-            -webkit-box-ordinal-group: 6;
             -ms-flex-order: 5;
             order: 5;
         }
@@ -11498,7 +11624,6 @@ export const orderSm5 = css`
 export const orderSm6 = css`
     @media (min-width: 576px) {
         & {
-            -webkit-box-ordinal-group: 7;
             -ms-flex-order: 6;
             order: 6;
         }
@@ -11508,7 +11633,6 @@ export const orderSm6 = css`
 export const orderSm7 = css`
     @media (min-width: 576px) {
         & {
-            -webkit-box-ordinal-group: 8;
             -ms-flex-order: 7;
             order: 7;
         }
@@ -11518,7 +11642,6 @@ export const orderSm7 = css`
 export const orderSm8 = css`
     @media (min-width: 576px) {
         & {
-            -webkit-box-ordinal-group: 9;
             -ms-flex-order: 8;
             order: 8;
         }
@@ -11528,7 +11651,6 @@ export const orderSm8 = css`
 export const orderSm9 = css`
     @media (min-width: 576px) {
         & {
-            -webkit-box-ordinal-group: 10;
             -ms-flex-order: 9;
             order: 9;
         }
@@ -11538,7 +11660,6 @@ export const orderSm9 = css`
 export const orderSm10 = css`
     @media (min-width: 576px) {
         & {
-            -webkit-box-ordinal-group: 11;
             -ms-flex-order: 10;
             order: 10;
         }
@@ -11548,7 +11669,6 @@ export const orderSm10 = css`
 export const orderSm11 = css`
     @media (min-width: 576px) {
         & {
-            -webkit-box-ordinal-group: 12;
             -ms-flex-order: 11;
             order: 11;
         }
@@ -11558,7 +11678,6 @@ export const orderSm11 = css`
 export const orderSm12 = css`
     @media (min-width: 576px) {
         & {
-            -webkit-box-ordinal-group: 13;
             -ms-flex-order: 12;
             order: 12;
         }
@@ -11568,7 +11687,6 @@ export const orderSm12 = css`
 export const orderSmFirst = css`
     @media (min-width: 576px) {
         & {
-            -webkit-box-ordinal-group: 0;
             -ms-flex-order: -1;
             order: -1;
         }
@@ -11578,7 +11696,6 @@ export const orderSmFirst = css`
 export const orderSmLast = css`
     @media (min-width: 576px) {
         & {
-            -webkit-box-ordinal-group: 14;
             -ms-flex-order: 13;
             order: 13;
         }
@@ -11588,7 +11705,6 @@ export const orderSmLast = css`
 export const orderXl0 = css`
     @media (min-width: 1200px) {
         & {
-            -webkit-box-ordinal-group: 1;
             -ms-flex-order: 0;
             order: 0;
         }
@@ -11598,7 +11714,6 @@ export const orderXl0 = css`
 export const orderXl1 = css`
     @media (min-width: 1200px) {
         & {
-            -webkit-box-ordinal-group: 2;
             -ms-flex-order: 1;
             order: 1;
         }
@@ -11608,7 +11723,6 @@ export const orderXl1 = css`
 export const orderXl2 = css`
     @media (min-width: 1200px) {
         & {
-            -webkit-box-ordinal-group: 3;
             -ms-flex-order: 2;
             order: 2;
         }
@@ -11618,7 +11732,6 @@ export const orderXl2 = css`
 export const orderXl3 = css`
     @media (min-width: 1200px) {
         & {
-            -webkit-box-ordinal-group: 4;
             -ms-flex-order: 3;
             order: 3;
         }
@@ -11628,7 +11741,6 @@ export const orderXl3 = css`
 export const orderXl4 = css`
     @media (min-width: 1200px) {
         & {
-            -webkit-box-ordinal-group: 5;
             -ms-flex-order: 4;
             order: 4;
         }
@@ -11638,7 +11750,6 @@ export const orderXl4 = css`
 export const orderXl5 = css`
     @media (min-width: 1200px) {
         & {
-            -webkit-box-ordinal-group: 6;
             -ms-flex-order: 5;
             order: 5;
         }
@@ -11648,7 +11759,6 @@ export const orderXl5 = css`
 export const orderXl6 = css`
     @media (min-width: 1200px) {
         & {
-            -webkit-box-ordinal-group: 7;
             -ms-flex-order: 6;
             order: 6;
         }
@@ -11658,7 +11768,6 @@ export const orderXl6 = css`
 export const orderXl7 = css`
     @media (min-width: 1200px) {
         & {
-            -webkit-box-ordinal-group: 8;
             -ms-flex-order: 7;
             order: 7;
         }
@@ -11668,7 +11777,6 @@ export const orderXl7 = css`
 export const orderXl8 = css`
     @media (min-width: 1200px) {
         & {
-            -webkit-box-ordinal-group: 9;
             -ms-flex-order: 8;
             order: 8;
         }
@@ -11678,7 +11786,6 @@ export const orderXl8 = css`
 export const orderXl9 = css`
     @media (min-width: 1200px) {
         & {
-            -webkit-box-ordinal-group: 10;
             -ms-flex-order: 9;
             order: 9;
         }
@@ -11688,7 +11795,6 @@ export const orderXl9 = css`
 export const orderXl10 = css`
     @media (min-width: 1200px) {
         & {
-            -webkit-box-ordinal-group: 11;
             -ms-flex-order: 10;
             order: 10;
         }
@@ -11698,7 +11804,6 @@ export const orderXl10 = css`
 export const orderXl11 = css`
     @media (min-width: 1200px) {
         & {
-            -webkit-box-ordinal-group: 12;
             -ms-flex-order: 11;
             order: 11;
         }
@@ -11708,7 +11813,6 @@ export const orderXl11 = css`
 export const orderXl12 = css`
     @media (min-width: 1200px) {
         & {
-            -webkit-box-ordinal-group: 13;
             -ms-flex-order: 12;
             order: 12;
         }
@@ -11718,7 +11822,6 @@ export const orderXl12 = css`
 export const orderXlFirst = css`
     @media (min-width: 1200px) {
         & {
-            -webkit-box-ordinal-group: 0;
             -ms-flex-order: -1;
             order: -1;
         }
@@ -11728,7 +11831,6 @@ export const orderXlFirst = css`
 export const orderXlLast = css`
     @media (min-width: 1200px) {
         & {
-            -webkit-box-ordinal-group: 14;
             -ms-flex-order: 13;
             order: 13;
         }
@@ -11962,6 +12064,7 @@ export const pageLink = css`
     border: 1px solid #dee2e6;
 
     &:hover {
+        z-index: 2;
         color: #0056b3;
         text-decoration: none;
         background-color: #e9ecef;
@@ -12008,7 +12111,6 @@ export const pageItem = css`
 `;
 
 export const pagination = css`
-    display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     padding-left: 0;
@@ -12780,7 +12882,6 @@ export const preScrollable = css`
 `;
 
 export const progress = css`
-    display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     height: 1rem;
@@ -12791,20 +12892,23 @@ export const progress = css`
 `;
 
 export const progressBar = css`
-    display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
     -ms-flex-direction: column;
     flex-direction: column;
-    -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
     color: #fff;
     text-align: center;
+    white-space: nowrap;
     background-color: #007bff;
     transition: width 0.6s ease;
+
+    @media screen and (prefers-reduced-motion: reduce) {
+        & {
+            transition: none;
+        }
+    }
 `;
 
 export const progressBarAnimated = css`
@@ -13723,13 +13827,28 @@ export const roundedTop = css`
 `;
 
 export const row = css`
-    display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
     margin-right: -15px;
     margin-left: -15px;
+`;
+
+export const shadow = css`
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+`;
+
+export const shadowLg = css`
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+`;
+
+export const shadowNone = css`
+    box-shadow: none !important;
+`;
+
+export const shadowSm = css`
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
 `;
 
 export const small = css`
@@ -13745,8 +13864,6 @@ export const srOnly = css`
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
-    -webkit-clip-path: inset(50%);
-    clip-path: inset(50%);
     border: 0;
 `;
 
@@ -13759,8 +13876,6 @@ export const srOnlyFocusable = css`
         overflow: visible;
         clip: auto;
         white-space: normal;
-        -webkit-clip-path: none;
-        clip-path: none;
     }
 `;
 
@@ -13832,6 +13947,11 @@ export const table = css`
         & th {
             background-color: #fff !important;
         }
+
+        & .thead-dark th {
+            color: inherit;
+            border-color: #dee2e6;
+        }
     }
 `;
 
@@ -13859,8 +13979,17 @@ export const tableBordered = css`
     @media print {
         & th,
         & td {
-            border: 1px solid #ddd !important;
+            border: 1px solid #dee2e6 !important;
         }
+    }
+`;
+
+export const tableBorderless = css`
+    & th,
+    & td,
+    & thead th,
+    & tbody + tbody {
+        border: 0;
     }
 `;
 
@@ -13991,6 +14120,19 @@ export const tableDark = css`
 
     &.${tableHover} tbody tr:hover {
         background-color: rgba(255, 255, 255, 0.075);
+    }
+
+    @media print {
+        & {
+            color: inherit;
+        }
+
+        & th,
+        & td,
+        & thead th,
+        & tbody + tbody {
+            border-color: #dee2e6;
+        }
     }
 `;
 
@@ -14125,6 +14267,14 @@ export const tableSm = css`
     }
 `;
 
+export const textBlack50 = css`
+    color: rgba(0, 0, 0, 0.5) !important;
+`;
+
+export const textBody = css`
+    color: #212529 !important;
+`;
+
 export const textCapitalize = css`
     text-transform: capitalize !important;
 `;
@@ -14237,6 +14387,11 @@ export const textMdRight = css`
     }
 `;
 
+export const textMonospace = css`
+    font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+        "Courier New", monospace;
+`;
+
 export const textMuted = css`
     color: #6c757d !important;
 `;
@@ -14321,6 +14476,10 @@ export const textWarning = css`
 
 export const textWhite = css`
     color: #fff !important;
+`;
+
+export const textWhite50 = css`
+    color: rgba(255, 255, 255, 0.5) !important;
 `;
 
 export const textXlCenter = css`
@@ -14420,6 +14579,10 @@ export const w100 = css`
     width: 100% !important;
 `;
 
+export const wAuto = css`
+    width: auto !important;
+`;
+
 export const wasValidated = css`
     & .${formControl}:valid, & .${customSelect}:valid {
         border-color: #28a745;
@@ -14441,6 +14604,15 @@ export const wasValidated = css`
         ~ .${validFeedback},
         &
         .${customSelect}:valid
+        ~ .${validTooltip} {
+        display: block;
+    }
+
+    &
+        .${formControlFile}:valid
+        ~ .${validFeedback},
+        &
+        .${formControlFile}:valid
         ~ .${validTooltip} {
         display: block;
     }
@@ -14524,6 +14696,15 @@ export const wasValidated = css`
         ~ .${invalidFeedback},
         &
         .${customSelect}:invalid
+        ~ .${invalidTooltip} {
+        display: block;
+    }
+
+    &
+        .${formControlFile}:invalid
+        ~ .${invalidFeedback},
+        &
+        .${formControlFile}:invalid
         ~ .${invalidTooltip} {
         display: block;
     }
