@@ -1,6 +1,6 @@
 {
-  "name": "emotion-bootstrap",
-  "version": "4.0.1",
+  "name": "@farvisionllc/emotion-bootstrap",
+  "version": "4.1.2",
   "description": "Bootstrap compiled for Emotion framework",
   "main": "dist/bootstrap.js",
   "keywords": [
